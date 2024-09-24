@@ -1,15 +1,9 @@
 
-function show() {
-        
-  let y = document.getElement("Geometry Intensified").value;
-  document.getElementById('plz').textContent = y;
-  
-  }
    
   function checkCheckboxes() {
   
   
-  let checkboxes = document.querySelectorAll("checkboxes");
+  let checkboxes = document.querySelectorAll(".checkboxes");
   
   
   let checkedValues = [];
@@ -22,5 +16,5 @@ function show() {
   });
   
   // Display the checked values
-  document.getElementById('plz').textContent = "Selected: " + checkedValues.join(", ");
+  document.getElementById("plz").textContent = "Selected: " + checkedValues.join(", ");
 }
