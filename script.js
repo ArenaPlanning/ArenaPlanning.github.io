@@ -14,6 +14,5 @@ function checkCheckboxes() {
   });
   
   // Display the checked values
-  document.getElementById('plz').textContent = checkedValues.length > 0 ? 
-    "Selected: " + checkedValues.join(", ") : "No classes selected";
+  document.getElementById('plz').textContent =  "Selected: " + checkedValues.join(", ");
 }
