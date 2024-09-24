@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script type="text/javascript" src="script.js"></script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,16 +23,12 @@
       <!-- Checkboxes with unique IDs and the class "checkboxes" -->
       <input id="PreAlgebra" type="checkbox" class="checkboxes" name="Pre-Algebra" value="Pre-Algebra (EL)">
       <label for="PreAlgebra">Pre-Algebra (EL)</label><br>
-      
       <input id="AlgebraI" type="checkbox" class="checkboxes" name="Algebra I" value="Algebra I (EL)">
       <label for="AlgebraI">Algebra I (EL)</label><br>
-      
       <input id="AlgebraII" type="checkbox" class="checkboxes" name="Algebra II" value="Algebra II">
       <label for="AlgebraII">Algebra II</label><br>
-      
       <input id="Geometry" type="checkbox" class="checkboxes" name="Geometry" value="Geometry">
       <label for="Geometry">Geometry</label><br>
-      
       <input id="GeometryIntensified" type="checkbox" class="checkboxes" name="Geometry Intensified" value="Geometry Intensified">
       <label for="GeometryIntensified">Geometry Intensified</label><br>
 
@@ -43,27 +40,6 @@
   <!-- Display selected values here -->
   <p id="plz"></p>
 
-  <script>
-    // Function to check which checkboxes are selected
-    function checkCheckboxes() {
-      // Get all checkboxes with the class "checkboxes"
-      let checkboxes = document.querySelectorAll(".checkboxes");
-      
-      // Array to store the values of checked checkboxes
-      let checkedValues = [];
 
-      // Loop through each checkbox
-      checkboxes.forEach(function(checkbox) {
-        // Check if checkbox is checked
-        if (checkbox.checked) {
-          checkedValues.push(checkbox.value); // Add the checked value to the array
-        }
-      });
-      
-      // Display the checked values
-      document.getElementById('plz').textContent = checkedValues.length > 0 ? 
-        "Selected: " + checkedValues.join(", ") : "No classes selected";
-    }
-  </script>
 </body>
 </html>
