@@ -8,8 +8,8 @@
          
         function checkCheckboxes() {
         
-        let checkboxes = [];
-         checkboxes = document.querySelectorAll(".checkboxes");
+        
+        let checkboxes = document.querySelectorAll(".checkboxes");
         
         
         let checkedValues = [];
