@@ -21,15 +21,17 @@
             <input id="Geometry" type="checkbox" name="Geometry" value=23143> <label for="Geometry"> Geometry</label>
             <input id="Geometry EL" type="checkbox" name="Geometry EL" value=23143> <label for="Geometry EL"> Geometry EL </label>
             <input id="Geometry Intensified" type="checkbox" name="Geometry Intensified" value=23141> <label for="Geometry Intensified"> Geometry Intensified </label>
-            <input name="name" type="text" id="test"/> <button type="submit"> Send </button>
+            <input  type="text" id="test"/> <button onclick="show()" type="submit"> Send </button>
             
            
     
         </fieldset>       
     </div>
     <script>
+        function show() {
         var y = document.getElementById("test");
         document.getElementById('plz') = y;
+        }
     </script>
     <p id="plz"> test</p>
 </body>
