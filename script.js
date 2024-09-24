@@ -22,6 +22,6 @@
         });
         
         // Display the checked values
-        document.getElementById('selectedCheckboxes').textContent = "Selected: " + checkedValues.join(", ");
+        document.getElementById('plz').textContent = "Selected: " + checkedValues.join(", ");
       }
   
