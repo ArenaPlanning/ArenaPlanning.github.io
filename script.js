@@ -8,7 +8,8 @@
          
         function checkCheckboxes() {
         
-        let checkboxes = document.querySelectorAll(".checkboxes");
+        let checkboxes = [];
+         checkboxes = document.querySelectorAll(".checkboxes");
         
         
         let checkedValues = [];
@@ -21,6 +22,6 @@
         });
         
         // Display the checked values
-        document.getElementById("selectedCheckboxes").textContent = "Selected: " + checkedValues.join(", ");
+        document.getElementById('selectedCheckboxes').textContent = "Selected: " + checkedValues.join(", ");
       }
   
