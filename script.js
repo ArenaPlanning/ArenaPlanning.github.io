@@ -1,6 +1,6 @@
 
         function show() {
-        let y = document.getElementById("test").value;
+        let y = document.getElementById("Geometry Intensified").value;
         document.getElementById('plz').textContent = y;
         }
   
