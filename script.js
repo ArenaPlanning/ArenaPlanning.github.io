@@ -1,3 +1,28 @@
+fetch('https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/pub?output=csv')
+.then(response => response.text())
+.then(csv => {
+  const rows = csv.split('\n').map(row => row.split(','));
+  console.log(rows); // Now you have the data as an array of rows
+  // Process the rows for your class combination logic here
+})
+.catch(error => console.error('Error fetching the CSV:', error));
+
+function findRowByValue(array, value) {
+  
+  for (let i = 0; i < array.length; i++) {
+    
+    if (array[i][0] === value) {
+      return array[i];  
+    }
+  }
+  return null;  
+}
+
+function checkclasses(arrr, ){
+  
+  
+  
+}
 
 function checkCheckboxes() {
   
@@ -14,7 +39,7 @@ function checkCheckboxes() {
   });
   
   // Display the checked values
-  document.getElementById('plz').textContent =  "Selected: " + checkedValues.join(", ");
+  document.getElementById('plz').textContent = checkedValues.join("  ");
 }
 
 function generatePermutations(arr) {
