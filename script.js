@@ -14,8 +14,7 @@ function checkCheckboxes() {
   });
   
   // Display the checked values
-  let yeast = checkedValues.join(" ");
-  document.getElementById('plz').textContent = + yeast;
+  document.getElementById('plz').textContent = + checkedValues.join(" ");
 }
 
 function generatePermutations(arr) {
