@@ -1,6 +1,6 @@
 // Function to fetch the CSV and process the data
 async function fetchCSV() {
-  const response = await fetch('https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/pub?output=csv'); // Update with your CSV file's location
+  const response = await fetch('https://raw.githubusercontent.com/ArenaPlanning/ArenaPlanning.github.io/refs/heads/main/schedule.csv'); // Update with your CSV file's location
   const csvData = await response.text();
 
   // Split the CSV data into rows and columns
