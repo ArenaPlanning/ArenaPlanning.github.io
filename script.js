@@ -17,48 +17,66 @@ async function fetchCSV() {
   return classData;
 }
 
-// Function to generate all possible schedules
-async function generateSchedules() {
-  const classData = await fetchCSV();
+function generateSchedules() {
+  const checkedClasses = checkCheckboxes(); // Get checked classes
+  const allScheduleOptions = generatePermutations(checkedClasses); // Generate all permutations
   
-  // Get the selected classes from the form
-  const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
-                                .map(input => input.value);
-  
-  if (selectedClasses.length === 0) {
-    document.getElementById('output').textContent = 'Please select at least one class.';
-    return;
-  }
+  const outputDiv = document.getElementById('scheduleOutput');
+  outputDiv.innerHTML = ''; // Clear previous output
 
-  // Generate all permutations of class periods
-  const schedules = generateClassSchedules(selectedClasses, classData);
+  allScheduleOptions.forEach(schedule => {
+    const table = document.createElement('table'); // Create a new table
+    const headerRow = document.createElement('tr'); // Create the header row
 
-  // Display the generated schedules
-  displaySchedules(schedules);
-}
+    // Create headers for "Period" and "Class"
+    const periodHeader = document.createElement('th');
+    periodHeader.innerText = "Period";
+    const classHeader = document.createElement('th');
+    classHeader.innerText = "Class";
+    headerRow.appendChild(periodHeader);
+    headerRow.appendChild(classHeader);
+    table.appendChild(headerRow); // Add the header row to the table
 
-// Function to generate all possible combinations (permutations) of class schedules
-function generateClassSchedules(selectedClasses, classData) {
-  let schedules = [[]]; // Start with an empty schedule
+    // Create an object to map classes to periods for this schedule option
+    const periods = {
+      A: "Free Block",
+      B: "Free Block",
+      C: "Free Block",
+      D: "Free Block",
+      E: "Free Block",
+      F: "Free Block",
+      G: "Free Block",
+      H: "Free Block"
+    };
 
-  selectedClasses.forEach(classCode => {
-    const periods = classData[classCode];
-
-    // Generate all possible combinations with the current class
-    const newSchedules = [];
-    schedules.forEach(schedule => {
-      periods.forEach(period => {
-        if (!schedule.includes(period)) { // Check for conflicting periods
-          newSchedules.push([...schedule, { classCode, period }]);
-        }
+    // Assign classes to the periods they are scheduled for
+    schedule.forEach(classData => {
+      const [className, offeredPeriods] = classData.split(':');
+      const periodList = offeredPeriods.split(';');
+      periodList.forEach(period => {
+        periods[period] = className;
       });
     });
 
-    schedules = newSchedules;
-  });
+    // Create table rows for each period (A to H)
+    for (const period in periods) {
+      const row = document.createElement('tr');
+      const periodCell = document.createElement('td');
+      periodCell.innerText = period;
+      const classCell = document.createElement('td');
+      classCell.innerText = periods[period];
 
-  return schedules;
+      row.appendChild(periodCell);
+      row.appendChild(classCell);
+      table.appendChild(row);
+    }
+
+    // Append the table for the current schedule option
+    outputDiv.appendChild(table);
+    outputDiv.appendChild(document.createElement('br')); // Add space between schedules
+  });
 }
+
 
 // Function to display the generated schedules in HTML
 function displaySchedules(schedules) {
