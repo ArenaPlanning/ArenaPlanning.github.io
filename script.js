@@ -1,3 +1,5 @@
+
+
 // Function to fetch the CSV and process the data
 async function fetchCSV() {
    const response = await fetch('https://raw.githubusercontent.com/ArenaPlanning/ArenaPlanning.github.io/refs/heads/main/schedule.csv'); // Update with your CSV file's location
@@ -16,6 +18,10 @@ async function fetchCSV() {
 
   return classData;
 }
+
+
+
+
 
 // Function to generate all possible schedules
 async function generateSchedules() {
@@ -36,6 +42,10 @@ async function generateSchedules() {
   // Display the generated schedules
   displaySchedules(schedules);
 }
+
+
+
+
 
 // Function to generate all possible combinations (permutations) of class schedules
 function generateClassSchedules(selectedClasses, classData) {
@@ -59,6 +69,9 @@ function generateClassSchedules(selectedClasses, classData) {
 
   return schedules;
 }
+
+
+
 
 // Function to display the generated schedules in HTML as tables
 function displaySchedules(schedules) {
