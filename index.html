@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-    <script type="text/javascript" src="script.js"></script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkbox Example</title>
-  <link rel="stylesheet" href="STYLE.css">
-  <script type="text/javascript" src="script.js"></script>
+  <title>Schedule Generator</title>
+  <script defer src="scheduleGenerator.js"></script>
 </head>
-<body style="background-color:#c5e9f8;">
-  <center>
-    <h1>Welcome to Arena Planning</h1>
-    <p>Enter your classes into the boxes to see available options</p>
-  </center>
+<body>
+  <h1>Class Schedule Generator</h1>
 
-  <h2>What classes are you taking?</h2>
+  <form id="classForm">
+    <h2>Select the classes you are taking:</h2>
+    <!-- Checkbox list of classes -->
+    <div>
+      <input type="checkbox" id="english9" name="class" value="21130">
+      <label for="english9">English 9</label><br>
+      <input type="checkbox" id="english10" name="class" value="21140">
+      <label for="english10">English 10</label><br>
+      <input type="checkbox" id="apLang" name="class" value="31196">
+      <label for="apLang">AP English Language</label><br>
+      <input type="checkbox" id="apGovSem" name="class" value="32445">
+      <label for="apGovSem">AP Gov Seminar</label><br>
+      <input type="checkbox" id="earthSpac" name="class" value="24210">
+      <label for="earthSpac">Earth Space</label><br> 
+      <input type="checkbox" id="span3" name="class" value="25530">
+      <label for="span3">Spanish 3</label><br> 
+      <input type="checkbox" id="apEnvSci" name="class" value="34270">
+      <label for="apEnvSci">AP Environmental Science</label><br> 
+      <input type="checkbox" id="alg2Int" name="class" value="23136">
+      <label for="alg2Int">Algebra II Intensified</label><br> 
+      <input type="checkbox" id="apPysch" name="class" value="32902">
+      <label for="apPsych">AP Psych</label><br> 
 
-  <div>
-    <fieldset>
-      <legend>Math</legend>
-      <input id="PreAlgebra" type="checkbox" class="checkboxes" name="Pre-Algebra" value="Pre-Algebra (EL)">
-      <label for="PreAlgebra">Pre-Algebra (EL)</label>
-      <input id="AlgebraI" type="checkbox" class="checkboxes" name="Algebra I" value="Algebra I (EL)">
-      <label for="AlgebraI">Algebra I (EL)</label>
-      <input id="AlgebraII" type="checkbox" class="checkboxes" name="Algebra II" value="Algebra II">
-      <label for="AlgebraII">Algebra II</label>
-      <input id="Geometry" type="checkbox" class="checkboxes" name="Geometry" value="Geometry">
-      <label for="Geometry">Geometry</label>
-      <input id="GeometryIntensified" type="checkbox" class="checkboxes" name="Geometry Intensified" value="Geometry Intensified">
-      <label for="GeometryIntensified">Geometry Intensified</label>
+      <!-- Add more checkboxes as needed -->
+    </div>
+    
+    <button type="button" onclick="generateSchedules()">Generate Schedule Options</button>
+  </form>
 
-      <button onclick="checkCheckboxes()">Send</button>
-    </fieldset>
-  </div>
-
-
-  <p id="plz"></p>
-
+  <h2>Possible Schedules:</h2>
+  <div id="output"></div>
 
 </body>
 </html>
