@@ -1,58 +1,79 @@
-fetch('https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/pub?output=csv')
-.then(response => response.text())
-.then(csv => {
-  const rows = csv.split('\n').map(row => row.split(','));
-  console.log(rows); // Now you have the data as an array of rows
-  // Process the rows for your class combination logic here
-})
-.catch(error => console.error('Error fetching the CSV:', error));
+// Function to fetch the CSV and process the data
+async function fetchCSV() {
+  const response = await fetch('https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/pub?output=csv'); // Update with your CSV file's location
+  const csvData = await response.text();
 
-function findRowByValue(array, value) {
-  
-  for (let i = 0; i < array.length; i++) {
-    
-    if (array[i][0] === value) {
-      return array[i];  
-    }
-  }
-  return null;  
-}
+  // Split the CSV data into rows and columns
+  const rows = csvData.trim().split('\n').map(row => row.split(','));
 
-function checkclasses(arrr, ){
-  
-  
-  
-}
-
-function checkCheckboxes() {
-  
-  let checkboxes = document.querySelectorAll(".checkboxes");
-  
-  
-  let checkedValues = [];
-
-  checkboxes.forEach(function(checkbox) {
-    
-    if (checkbox.checked) {
-      checkedValues.push(checkbox.value); 
-    }
+  // Convert rows into a more usable object
+  const classData = {};
+  rows.forEach(row => {
+    const classCode = row[0];
+    const periods = row[1].split(';');
+    classData[classCode] = periods;
   });
-  
-  // Display the checked values
-  document.getElementById('plz').textContent = checkedValues.join("  ");
+
+  return classData;
 }
 
-function generatePermutations(arr) {
-  if (arr.length <= 1) {
-    return [arr];
-  }
-
-  let result = [];
-
+// Function to generate all possible schedules
+async function generateSchedules() {
+  const classData = await fetchCSV();
   
-  for (let i = 0; i < arr.length; i++) {
-    let current = arr[i];
-    let remaining = arr.slice(0, i).concat(arr.slice(i + 1));
-    let remainingPerms = generatePermutations(remaining);
+  // Get the selected classes from the form
+  const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
+                                .map(input => input.value);
+  
+  if (selectedClasses.length === 0) {
+    document.getElementById('output').textContent = 'Please select at least one class.';
+    return;
   }
+
+  // Generate all permutations of class periods
+  const schedules = generateClassSchedules(selectedClasses, classData);
+
+  // Display the generated schedules
+  displaySchedules(schedules);
+}
+
+// Function to generate all possible combinations (permutations) of class schedules
+function generateClassSchedules(selectedClasses, classData) {
+  let schedules = [[]]; // Start with an empty schedule
+
+  selectedClasses.forEach(classCode => {
+    const periods = classData[classCode];
+
+    // Generate all possible combinations with the current class
+    const newSchedules = [];
+    schedules.forEach(schedule => {
+      periods.forEach(period => {
+        if (!schedule.includes(period)) { // Check for conflicting periods
+          newSchedules.push([...schedule, { classCode, period }]);
+        }
+      });
+    });
+
+    schedules = newSchedules;
+  });
+
+  return schedules;
+}
+
+// Function to display the generated schedules in HTML
+function displaySchedules(schedules) {
+  const output = document.getElementById('output');
+  output.innerHTML = '';
+
+  if (schedules.length === 0) {
+    output.textContent = 'No possible schedules found due to conflicts.';
+    return;
+  }
+
+  schedules.forEach(schedule => {
+    const scheduleText = schedule.map(entry => `${entry.classCode}: Period ${entry.period}`).join(', ');
+    const scheduleElement = document.createElement('p');
+    scheduleElement.textContent = scheduleText;
+    output.appendChild(scheduleElement);
+  });
 }
