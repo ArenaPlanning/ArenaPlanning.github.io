@@ -48,7 +48,7 @@ function generateClassSchedules(selectedClasses, classData) {
     const newSchedules = [];
     schedules.forEach(schedule => {
       periods.forEach(period => {
-        if (!schedule.includes(period)) { // Check for conflicting periods
+        if (!schedule.some(entry => entry.period === period)) { // Check for conflicting periods
           newSchedules.push([...schedule, { classCode, period }]);
         }
       });
