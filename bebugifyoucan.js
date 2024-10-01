@@ -1,6 +1,6 @@
 // Function to fetch the CSV and process the data
 async function fetchCSV() {
-  const response = await fetch('https://raw.githubusercontent.com/ArenaPlanning/ArenaPlanning.github.io/refs/heads/main/schedule.csv'); // Update with your CSV file's location
+  const response = await fetch('https://raw.githubusercontent.com/ArenaPlanning/ArenaPlanning.github.io/refs/heads/main/schedule.csv');
   const csvData = await response.text();
 
   // Split the CSV data into rows and columns
@@ -20,7 +20,6 @@ async function fetchCSV() {
 // Function to generate all possible schedules
 async function generateSchedules() {
   const classData = await fetchCSV();
-  
   // Get the selected classes from the form
   const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
                                 .map(input => input.value);
@@ -30,7 +29,7 @@ async function generateSchedules() {
     return;
   }
 
-  // Generate all permutations of class periods
+  // Generate all possible permutations of class periods
   const schedules = generateClassSchedules(selectedClasses, classData);
 
   // Display the generated schedules
@@ -39,28 +38,26 @@ async function generateSchedules() {
 
 // Function to generate all possible combinations (permutations) of class schedules
 function generateClassSchedules(selectedClasses, classData) {
-  let schedules = [[]]; // Start with an empty schedule
+  let schedules = [];
   let x = 0;
-
-  // There are 8! = 40320 possible permutations for 8 classes (if selected)
-  while (x < 40320) {
-    selectedClasses = nextPermutation(selectedClasses);
-
-    if (check(selectedClasses, classData)) {
-      // Generate a valid schedule with the current permutation
-      let validSchedule = [];
-      selectedClasses.forEach(classCode => {
-        const availablePeriods = classData[classCode];
-        // Add the first available non-conflicting period
-        validSchedule.push({ classCode, period: availablePeriods[0] });
+  const maxPermutations = 40320; // 8! for max 8 classes
+  const permutedClasses = permutator(selectedClasses);
+  const validSchedule = [];
+  while (x < maxPermutations) {
+    if (check(permutedClasses, classData, x)) {
+      const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
+      permutedClasses.forEach((classCode, index) => {
+        validSchedule.push({ classCode, period: letters[index] });
+        console.log({ classCode, period: letters[index] });
+        console.log(validSchedule);
       });
-      schedules.push(validSchedule);
+      schedules.push(validSchedule); // Add valid schedule
     }
 
     x++;
   }
 
-  return schedules;
+  return validSchedule;
 }
 
 // Function to display the generated schedules in HTML
@@ -112,25 +109,38 @@ function nextPermutation(arr) {
 }
 
 // Checks to see if the selected classes are in valid periods (no time conflicts)
-function check(selectedClasses, classData) {
-  const periodTracker = new Set();
+function check(selectedClasses, classData, place) {
+  const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
   for (let i = 0; i < selectedClasses.length; i++) {
     const classCode = selectedClasses[i];
-    const periods = classData[classCode];
+    const period = letters[i];
+    
+    // Check if the current class is available in the current period
+    if (!classData[classCode[i]].includes(period)) {
+      return false; // Conflict found
+    }
+  }
+  return true; // No conflicts
+}
+  
+  function permutator(inputArr) {
+  var results = [];
 
-    // Check if the class has a period that is already taken (conflict)
-    for (let j = 0; j < periods.length; j++) {
-      const period = periods[j];
+  function permute(arr, memo) {
+    var cur, memo = memo || [];
 
-      if (periodTracker.has(period)) {
-        return false; // Conflict detected
+    for (var i = 0; i < arr.length; i++) {
+      cur = arr.splice(i, 1);
+      if (arr.length === 0) {
+        results.push(memo.concat(cur));
       }
+      permute(arr.slice(), memo.concat(cur));
+      arr.splice(i, 0, cur[0]);
     }
 
-    // If no conflict, add the period to the tracker
-    periodTracker.add(periods[0]); // Use the first available period for simplicity
+    return results;
   }
 
-  return true; // No conflicts
+  return permute(inputArr);
 }
