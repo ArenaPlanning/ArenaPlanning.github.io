@@ -40,22 +40,18 @@ async function generateSchedules() {
 // Function to generate all possible combinations (permutations) of class schedules
 function generateClassSchedules(selectedClasses, classData) {
   let schedules = [[]]; // Start with an empty schedule
+    while(x<40320){
+      selectedClasses = nextPermutation(selectedClasses);
+      if (check(selectedClasses, classData){
+        //adds to schedules 
+      }
 
-  selectedClasses.forEach(classCode => {
-    const periods = classData[classCode];
 
-    // Generate all possible combinations with the current class
-    const newSchedules = [];
-    schedules.forEach(schedule => {
-      periods.forEach(period => {
-        if (!schedule.some(entry => entry.period === period)) { // Check for conflicting periods
-          newSchedules.push([...schedule, { classCode, period }]);
-        }
-      });
-    });
+    }
 
-    schedules = newSchedules;
-  });
+
+
+
 
   return schedules;
 }
@@ -105,4 +101,13 @@ function nextPermutation(arr) {
   }
 
   return arr;
+}
+// checks to see if the classes are in a valid place
+function check (selected, classda){
+  let i=0;
+  while (i<8){
+
+
+  }
+  return true 
 }
