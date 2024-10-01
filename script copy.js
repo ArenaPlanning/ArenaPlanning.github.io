@@ -78,3 +78,31 @@ function displaySchedules(schedules) {
   });
 }
 
+function nextPermutation(arr) {
+  let i = arr.length - 2;
+
+  // Step 1: Find the first element that is smaller than the element to its right
+  while (i >= 0 && arr[i] >= arr[i + 1]) {
+      i--;
+  }
+
+  if (i >= 0) {
+      // Step 2: Find the next largest element to swap with
+      let j = arr.length - 1;
+      while (arr[j] <= arr[i]) {
+          j--;
+      }
+      // Step 3: Swap elements at i and j
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+
+  // Step 4: Reverse the subarray after index i
+  let left = i + 1, right = arr.length - 1;
+  while (left < right) {
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+      left++;
+      right--;
+  }
+
+  return arr;
+}
