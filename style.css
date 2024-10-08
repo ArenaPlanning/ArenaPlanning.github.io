@@ -5,3 +5,8 @@ input{
   display: flex;
   align-items: center;
 }
+fieldset{
+  width: 100px;
+  height: 100px;
+
+}
