@@ -15,4 +15,18 @@ fieldset{
   box-sizing: border-box;
   margin-bottom: 10px;
   background-color: #8DBABA;
+
+}
+
+
+fieldset.collapsible .checkboxes {
+  display: none; /* Hide the checkboxes by default */
+}
+
+fieldset.collapsible.active .checkboxes {
+  display: block; /* Show checkboxes when the fieldset is active */
+}
+
+legend {
+  cursor: pointer; /* Change cursor to pointer when hovering over legend */
 }
