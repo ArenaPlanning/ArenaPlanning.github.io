@@ -4,14 +4,15 @@ input{
 .questions{
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: flex;
+  
 
 }
 
 fieldset{
-  width: 20%;
-  height: 25%;
+  width: 24.5%;
+  box-sizing: border-box;
   margin-bottom: 10px;
   background-color: #8DBABA;
-
 }
