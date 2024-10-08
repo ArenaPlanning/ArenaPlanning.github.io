@@ -3,7 +3,7 @@ input{
 }
 .questions{
   display: flex;
-  align-items: center;
+  align-items: bottom;
 }
 fieldset{
   width: 175px;
