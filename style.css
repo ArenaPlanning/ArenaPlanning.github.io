@@ -3,14 +3,13 @@ input{
 }
 .questions{
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: flex-start;
-  height: 100vh;
 
 }
 
 fieldset{
-  width: 100%;
+  width: 25%;
   margin-bottom: 10px;
   background-color: #8DBABA;
 
