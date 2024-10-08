@@ -205,3 +205,12 @@ function check(selectedClasses, classData, place) {
 
   return permute(inputArr);
 }
+
+
+
+document.querySelectorAll('legend').forEach(function(legend) {
+  legend.addEventListener('click', function() {
+    var fieldset = this.parentElement;
+    fieldset.classList.toggle('active'); // Toggle the 'active' class to show/hide checkboxes
+  });
+});
