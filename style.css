@@ -16,8 +16,14 @@ fieldset{
   margin-bottom: 10px;
   background-color: #c5e9f8;
   border: 10;
+  border-radius: 30px;
 }
-
+.collapsible{
+  text-align: center;
+}
+.checkboxes{
+  text-align: left;
+}
 
 fieldset.collapsible .checkboxes {
   display: none; /* Hide the checkboxes by default */
