@@ -208,7 +208,7 @@ function check(selectedClasses, classData, place) {
 
 
 
-document.querySelectorAll('legend').forEach(function(legend) {
+document.querySelectorAll('h3').forEach(function(legend) {
   legend.addEventListener('click', function() {
     var fieldset = this.parentElement;
     fieldset.classList.toggle('active'); // Toggle the 'active' class to show/hide checkboxes
