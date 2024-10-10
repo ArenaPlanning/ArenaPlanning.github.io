@@ -12,6 +12,7 @@ input{
 
 fieldset{
   width: 24.5%;
+  height: 10%;
   box-sizing: border-box;
   margin-bottom: 10px;
   background-color: #ffffff;
@@ -23,6 +24,7 @@ fieldset{
 }
 .checkboxes{
   text-align: left;
+  transition: max-height 0.3s ease-out;
 }
 
 fieldset.collapsible .checkboxes {
