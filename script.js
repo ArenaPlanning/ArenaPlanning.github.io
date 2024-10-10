@@ -3,10 +3,9 @@ async function fetchCSV() {
   const response = await fetch('https://raw.githubusercontent.com/ArenaPlanning/ArenaPlanning.github.io/refs/heads/main/schedule.csv');
   const csvData = await response.text();
 
-  // Split the CSV data into rows and columns
   const rows = csvData.trim().split('\n').map(row => row.split(','));
 
-  // Convert rows into a more usable object
+
   const classData = {};
   rows.forEach(row => {
     const classCode = row[0];
@@ -28,7 +27,7 @@ async function generateSchedules() {
   console.log("start code");
   const classData = await fetchCSV();
   console.log(classData);
-  // Get the selected classes from the form
+  
   const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
                                 .map(input => input.value);
   
@@ -37,10 +36,10 @@ async function generateSchedules() {
     return;
   }
 
-  // Generate all possible permutations of class periods
+  
   const schedules = generateClassSchedules(selectedClasses, classData);
 
-  // Display the generated schedules
+  
   console.log(schedules);
   displaySchedules(schedules, classData);
 }
@@ -159,7 +158,7 @@ function nextPermutation(arr) {
 
 
 
-// Checks to see if the selected classes are in valid periods (no time conflicts)
+// Checks to see if the selected classes are in valid periods
 function check(selectedClasses, classData, place) {
   const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
   console.log("running check")
@@ -211,6 +210,6 @@ function check(selectedClasses, classData, place) {
 document.querySelectorAll('h3').forEach(function(legend) {
   legend.addEventListener('click', function() {
     var fieldset = this.parentElement;
-    fieldset.classList.toggle('active'); // Toggle the 'active' class to show/hide checkboxes
+    fieldset.classList.toggle('active'); 
   });
 });
