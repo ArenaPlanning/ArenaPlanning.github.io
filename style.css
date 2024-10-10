@@ -10,8 +10,8 @@ input{
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex;
-  
-
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 fieldset{
