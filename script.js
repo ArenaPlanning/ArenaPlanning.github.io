@@ -37,7 +37,7 @@ async function generateSchedules() {
     return;
   }
   let u =0;
-  if (selectedClasses.length !== 8){
+  if (selectedClasses.length != 8){
     document.getElementById('output').textContent = "you have selected "+selectedClasses.length+ " classes please select 8.";
   }
 
