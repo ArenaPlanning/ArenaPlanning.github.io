@@ -33,13 +33,13 @@ fieldset{
 }
 
 fieldset.collapsible .checkboxes {
-  display: none; /* Hide the checkboxes by default */
+  display: none; 
 }
 
 fieldset.collapsible.active .checkboxes {
-  display: block; /* Show checkboxes when the fieldset is active */
+  display: block; 
 }
 
 h3 {
-  cursor: pointer; /* Change cursor to pointer when hovering over legend */
+  cursor: pointer; 
 }
