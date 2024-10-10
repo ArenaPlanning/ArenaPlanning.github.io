@@ -33,12 +33,12 @@ async function generateSchedules() {
                                 .map(input => input.value);
   
   if (selectedClasses.length === 0) {
-    document.getElementById('output').textContent = 'Please select at least one class.';
+    document.getElementById('output').textContent = 'Please select 8 classes.';
     return;
   }
   let u =0;
   if (selectedClasses.length < 8){
-    document.getElementById('output').textContent = "you have selected "+selectedClasses.length+ "classes please select 8.";
+    document.getElementById('output').textContent = "you have selected "+selectedClasses.length+ " classes please select 8.";
   }
 
   const schedules = generateClassSchedules(selectedClasses, classData);
