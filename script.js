@@ -24,6 +24,7 @@ async function fetchCSV() {
 // Function to generate all possible schedules
 async function generateSchedules() {
   console.clear();
+  document.getElementById('output').textContent = "genorating...";
   console.log("start code");
   const classData = await fetchCSV();
   console.log(classData);
@@ -35,8 +36,11 @@ async function generateSchedules() {
     document.getElementById('output').textContent = 'Please select at least one class.';
     return;
   }
+  let u =0;
+  if (selectedClasses.length < 8){
+    document.getElementById('output').textContent = "you have selected "+selectedClasses.length+ "classes please select 8.";
+  }
 
-  
   const schedules = generateClassSchedules(selectedClasses, classData);
 
   
