@@ -96,7 +96,7 @@ function displaySchedules(schedules, classData) {
   const leat = ["A", "B", "C", "D", "E", "F", "G", "H"];
   output.textContent = ' ';
   if (schedules.length === 0) {
-    output.textContent = 'No possible schedules found due to bad code.';
+    output.textContent = 'No possible schedules found.';
     
   }
   console.log(schedules);

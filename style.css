@@ -29,7 +29,7 @@ fieldset{
 }
 .checkboxes{
   text-align: left;
-  transition: max-height 0.3s ease-out;
+  transition: max-height 2s ease-out;
 }
 
 fieldset.collapsible .checkboxes {
