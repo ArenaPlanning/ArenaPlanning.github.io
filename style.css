@@ -1,7 +1,10 @@
 
+.output{
+  padding-left: 10%;
+}
 .title {
   text-align: center;
-  margin-top: 10%;
+  padding-top: 10%;
 }
 input{
   accent-color: #5A7370;
