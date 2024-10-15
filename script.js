@@ -24,7 +24,7 @@ async function fetchCSV() {
 // Function to generate all possible schedules
 async function generateSchedules() {
   console.clear();
-  document.getElementById('output').textContent = "genorating...";
+  document.getElementById('output').textContent = "generating...";
   console.log("start code");
   const classData = await fetchCSV();
   console.log(classData);
