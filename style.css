@@ -16,6 +16,7 @@ input{
   align-items: flex;
   padding-left: 10%;
   padding-right: 10%;
+  transition: 2s ease;
 }
 
 fieldset{
@@ -33,7 +34,7 @@ fieldset{
 }
 .checkboxes{
   text-align: left;
-  transition: 2s ease-out;
+  transition: 2s ease;
 }
 
 fieldset.collapsible .checkboxes {
