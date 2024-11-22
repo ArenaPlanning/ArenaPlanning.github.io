@@ -18,7 +18,9 @@ input{
   padding-right: 10%;
   transition: 2s ease;
 }
-
+body{
+  background-color: whitesmoke;
+}
 fieldset{
   width: 24.5%;
   height: 10%;
