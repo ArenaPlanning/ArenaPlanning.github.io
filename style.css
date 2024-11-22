@@ -18,6 +18,7 @@ h2{
 }
 input{
   accent-color: #5A7370;
+  padding-left: 11%;
 }
 .questions{
   display: flex;
