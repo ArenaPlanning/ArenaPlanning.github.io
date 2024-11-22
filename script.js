@@ -1,3 +1,4 @@
+let results = 0;
 // Function to fetch the CSV and process the data
 async function fetchCSV() {
   const response = await fetch('https://raw.githubusercontent.com/ArenaPlanning/ArenaPlanning.github.io/refs/heads/main/schedule.csv');
@@ -23,8 +24,16 @@ async function fetchCSV() {
 
 // Function to generate all possible schedules
 async function generateSchedules() {
+  results = 0;
   console.clear();
   document.getElementById('output').textContent = "generating...";
+  // let res = document.querySelectorAll(".results");         CODE FOR WHEN THEIR WAS NO BIG DIV 
+  // console.log(res);
+  // res.forEach(curent => {
+  //   curent.remove();
+  // });                    
+  let divb = document.querySelector(".bigdiv");
+  divb.remove();
   console.log("start code");
   const classData = await fetchCSV();
   console.log(classData);
@@ -46,6 +55,7 @@ async function generateSchedules() {
   
   console.log(schedules);
   displaySchedules(schedules, classData);
+  console.log(res);
 }
 
 
@@ -97,21 +107,41 @@ function displaySchedules(schedules, classData) {
   output.textContent = ' ';
   if (schedules.length === 0) {
     output.textContent = 'No possible schedules found.';
-    
+
   }
   console.log(schedules);
-  
+  const bigdiv = document.createElement("div");
+  bigdiv.classList = "bigdiv";
+  bigdiv.style.display = "flex";
+  document.body.appendChild(bigdiv);
+  bigdiv.style.flexDirection = "row";
+  bigdiv.style.flexWrap="wrap";
+
   for (y = 0; y < schedules.length; y++) {
       console.log(schedules[y]);
       console.log(schedules[y][1]);
-      let te = output.textContent;
       let h=y+1;
-      output.textContent = te +"\nOption "+h+": \n";
+      const newbox = document.createElement("div");
+      const newpre = document.createElement("pre");
+      
+      const heder = document.createElement("strong");
+      results++;
+      newpre.classList="resultspre";
+      newbox.classList = "results";
+      newbox.id = "box:"+results;
+      newpre.id = "pre:"+results;
+      newbox.style.padding="10px"
+      
+      // newbox.style.maxWidth = "fit-content";
+      
+      bigdiv.appendChild(newbox);
+      newbox.appendChild(heder);
+      newbox.appendChild(newpre);
+      
+      heder.textContent = "Option "+h+": ";
       for(z=0; z<8;z++){
-      let te = output.textContent;
-      
-      output.textContent = te + leat[z] +": "+ getCheckboxIdByValue(schedules[y][z])+"\n";
-      
+      console.log(results);
+      newpre.textContent = newpre.textContent + leat[z] +": "+ getCheckboxIdByValue(schedules[y][z])+"\n";
       }
       
       
