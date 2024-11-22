@@ -48,3 +48,13 @@ fieldset.collapsible.active .checkboxes {
 h3 {
   cursor: pointer; 
 }
+#counter{
+  
+  color: red;
+}
+#countercontainer{
+  margin: auto;
+  align-self: center;
+  text-align: center;
+  max-width: fit-content;
+}

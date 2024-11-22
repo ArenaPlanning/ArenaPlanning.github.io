@@ -11,14 +11,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schedule Generator</title>
   <script defer src="script.js"></script>
-<body>
+  </head>
+  <body>
   <h1>Class Schedule Generator</h1>
-
+  
   <form id="classForm">
     <h2>Select the classes you are taking: </h2>
-    <h3>(must select 8)</h3>
-  </head>
+    <div style="display: flex;" id="countercontainer">
+    <h3>(must select 8)</h3> <pre> </pre>  <h3>you have selected:</h3> <pre> </pre><h3 id="counter">0</h3>
+    </div>
   </div>
+
     <!-- Checkbox list of classes -->
     <div class="questions">
       <fieldset class="collapsible">
@@ -82,17 +85,16 @@
       <label for="Earth Space">Earth Space</label><br>
       <input type="checkbox" id="Biology" name="class" value="24310">
       <label for="Biology">Biology</label><br>
-
       <input type="checkbox" id="AP Biology" name="class" value="34370">
       <label for="AP Biology">AP Biology (click both)</label><br>
-      <input type="checkbox" id="AP Biology" name="class" value="34371">
-      <label for="AP Biology">AP Biology (click both)</label><br>
+      <input type="checkbox" id="AP Biology SEL" name="class" value="34371">
+      <label for="AP Biology SEL">AP Biology (click both)</label><br>
       <input type="checkbox" id="Chemistry" name="class" value="24410">
       <label for="Chemistry">Chemistry</label><br>
       <input type="checkbox" id="AP Chemistry" name="class" value="34470">
       <label for="AP Chemistry">AP Chemistry (click both)</label><br>
-      <input type="checkbox" id="AP Chemistry" name="class" value="34471">
-      <label for="AP Chemistry">AP Chemistry (click both)</label><br>
+      <input type="checkbox" id="AP Chemistry SEL" name="class" value="34471">
+      <label for="AP Chemistry SEL">AP Chemistry (click both)</label><br>
       <input type="checkbox" id="Prin. of Physics" name="class" value="24500">
       <label for="Prin. of Physics">Prin. of Physics</label><br>
       <input type="checkbox" id="Physics" name="class" value="24510">

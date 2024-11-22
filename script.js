@@ -25,7 +25,7 @@ async function fetchCSV() {
 // Function to generate all possible schedules
 async function generateSchedules() {
   results = 0;
-  console.clear();
+  // console.clear();
   document.getElementById('output').textContent = "generating...";
   // let res = document.querySelectorAll(".results");         CODE FOR WHEN THEIR WAS NO BIG DIV 
   // //console.log(res);
@@ -248,3 +248,22 @@ document.querySelectorAll('h3').forEach(function(legend) {
     fieldset.classList.toggle('active'); 
   });
 });
+
+function listiners(){
+  const checkboxes = document.querySelectorAll('input');
+  checkboxes.forEach(boxes => {
+    boxes.addEventListener("change",counter);
+  });
+  
+}
+function counter(event){
+  
+  const counter = document.getElementById("counter");
+  if(event.currentTarget.checked){
+  counter.textContent = Number(counter.textContent) + 1;
+  }else{
+  counter.textContent = Number(counter.textContent) - 1;
+  }
+  
+}
+listiners();
