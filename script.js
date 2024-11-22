@@ -12,7 +12,7 @@ async function fetchCSV() {
     const classCode = row[0];
     const periods = row[1].split(';');
     classData[classCode] = periods;
-    console.log(" hello ");
+    ////console.log(" hello ");
   });
 
   return classData;
@@ -28,15 +28,15 @@ async function generateSchedules() {
   console.clear();
   document.getElementById('output').textContent = "generating...";
   // let res = document.querySelectorAll(".results");         CODE FOR WHEN THEIR WAS NO BIG DIV 
-  // console.log(res);
+  // //console.log(res);
   // res.forEach(curent => {
   //   curent.remove();
   // });                    
   let divb = document.querySelector(".bigdiv");
   divb.remove();
-  console.log("start code");
+  //console.log("start code");
   const classData = await fetchCSV();
-  console.log(classData);
+  //console.log(classData);
   
   const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
                                 .map(input => input.value);
@@ -53,9 +53,9 @@ async function generateSchedules() {
   const schedules = generateClassSchedules(selectedClasses, classData);
 
   
-  console.log(schedules);
+  //console.log(schedules);
   displaySchedules(schedules, classData);
-  console.log(res);
+  //console.log(res);
 }
 
 
@@ -71,25 +71,25 @@ function generateClassSchedules(selectedClasses, classData) {
   const validSchedule = [];
   
   while (x < maxPermutations) {
-    console.log("in loop");
+    //console.log("in loop");
     const validSchedule = [];
     if (check(permutedClasses, classData, x)) {
       const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
       // permutedClasses.forEach((classCode, index) => {
       //   schedules.push({ classCode, period: letters[index] });
-      //   console.log({ classCode, period: letters[index] });
+      //   //console.log({ classCode, period: letters[index] });
         
       // });
       
       schedules.push(permutedClasses[x])
-      console.log(permutedClasses[x])
+      //console.log(permutedClasses[x])
       //schedules.push(validSchedule); // Add valid schedule
       
     }
 
     x++;
   }
-  console.log(schedules);
+  //console.log(schedules);
   return schedules;
 }
 
@@ -102,14 +102,14 @@ function generateClassSchedules(selectedClasses, classData) {
 function displaySchedules(schedules, classData) {
   const output = document.getElementById('output');
   output.innerHTML = '';
-  console.log("outputing now");
+  //console.log("outputing now");
   const leat = ["A", "B", "C", "D", "E", "F", "G", "H"];
   output.textContent = ' ';
   if (schedules.length === 0) {
     output.textContent = 'No possible schedules found.';
 
   }
-  console.log(schedules);
+  //console.log(schedules);
   const bigdiv = document.createElement("div");
   bigdiv.classList = "bigdiv";
   bigdiv.style.display = "flex";
@@ -118,8 +118,8 @@ function displaySchedules(schedules, classData) {
   bigdiv.style.flexWrap="wrap";
 
   for (y = 0; y < schedules.length; y++) {
-      console.log(schedules[y]);
-      console.log(schedules[y][1]);
+      //console.log(schedules[y]);
+      //console.log(schedules[y][1]);
       let h=y+1;
       const newbox = document.createElement("div");
       const newpre = document.createElement("pre");
@@ -140,13 +140,13 @@ function displaySchedules(schedules, classData) {
       
       heder.textContent = "Option "+h+": ";
       for(z=0; z<8;z++){
-      console.log(results);
+      //console.log(results);
       newpre.textContent = newpre.textContent + leat[z] +": "+ getCheckboxIdByValue(schedules[y][z])+"\n";
       }
       
       
   }
-  console.log("end code");
+  //console.log("end code");
 }
 
 
@@ -196,26 +196,26 @@ function nextPermutation(arr) {
 // Checks to see if the selected classes are in valid periods
 function check(selectedClasses, classData, place) {
   const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
-  console.log("running check")
-  console.log("palce:"+place);
-  console.log("schudle array:"+selectedClasses[place]);
+  //console.log("running check")
+  //console.log("palce:"+place);
+  //console.log("schudle array:"+selectedClasses[place]);
   for (let i = 0; i < selectedClasses[place].length; i++) {
-    console.log("block:"+i);
-    console.log("curent class:"+selectedClasses[place][i]);
+    //console.log("block:"+i);
+    //console.log("curent class:"+selectedClasses[place][i]);
     const classCode = selectedClasses[place];
     const period = letters[i];
     
     // Check if the current class is available in the current period
-    console.log("period:"+period);
-    console.log("class code"+classCode[i]);
-    console.log("offered blocks:"+classData[classCode[i]]);
-    console.log("conflicts "+!classData[classCode[i]].includes(period));
+    //console.log("period:"+period);
+    //console.log("class code"+classCode[i]);
+    //console.log("offered blocks:"+classData[classCode[i]]);
+    //console.log("conflicts "+!classData[classCode[i]].includes(period));
     if (!classData[classCode[i]].includes(period)) {
-      console.log("Conflict found");
+      //console.log("Conflict found");
       return false; // Conflict found
     }
   }
-  console.log("Conflict not found returning true");
+  //console.log("Conflict not found returning true");
   return true; // No conflicts
 }
   
