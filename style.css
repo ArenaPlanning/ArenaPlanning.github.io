@@ -20,6 +20,9 @@ input{
   accent-color: #5A7370;
   padding-left: 11%;
 }
+#free{
+  background-color: #808080;
+}
 .questions{
   display: flex;
   flex-wrap: wrap;
