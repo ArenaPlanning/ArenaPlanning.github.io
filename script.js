@@ -12,7 +12,7 @@ async function fetchCSV() {
     const classCode = row[0];
     const periods = row[1].split(';');
     classData[classCode] = periods;
-    ////console.log(" hello ");
+  
   });
 
   return classData;
@@ -25,18 +25,11 @@ async function fetchCSV() {
 // Function to generate all possible schedules
 async function generateSchedules() {
   results = 0;
-  // console.clear();
-  document.getElementById('output').textContent = "generating...";
-  // let res = document.querySelectorAll(".results");         CODE FOR WHEN THEIR WAS NO BIG DIV 
-  // //console.log(res);
-  // res.forEach(curent => {
-  //   curent.remove();
-  // });                    
+  document.getElementById('output').textContent = "generating...";                  
   let divb = document.querySelector(".bigdiv");
   divb.remove();
-  //console.log("start code");
   const classData = await fetchCSV();
-  //console.log(classData);
+
   
   const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
                                 .map(input => input.value);
@@ -71,25 +64,19 @@ function generateClassSchedules(selectedClasses, classData) {
   const validSchedule = [];
   
   while (x < maxPermutations) {
-    //console.log("in loop");
+    
     const validSchedule = [];
     if (check(permutedClasses, classData, x)) {
       const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
-      // permutedClasses.forEach((classCode, index) => {
-      //   schedules.push({ classCode, period: letters[index] });
-      //   //console.log({ classCode, period: letters[index] });
-        
-      // });
-      
+     
       schedules.push(permutedClasses[x])
-      //console.log(permutedClasses[x])
-      //schedules.push(validSchedule); // Add valid schedule
+      e
       
     }
 
     x++;
   }
-  //console.log(schedules);
+  
   return schedules;
 }
 
@@ -118,8 +105,7 @@ function displaySchedules(schedules, classData) {
   bigdiv.style.flexWrap="wrap";
 
   for (y = 0; y < schedules.length; y++) {
-      //console.log(schedules[y]);
-      //console.log(schedules[y][1]);
+    
       let h=y+1;
       const newbox = document.createElement("div");
       const newpre = document.createElement("pre");
@@ -132,7 +118,7 @@ function displaySchedules(schedules, classData) {
       newpre.id = "pre:"+results;
       newbox.style.padding="10px"
       
-      // newbox.style.maxWidth = "fit-content";
+     
       
       bigdiv.appendChild(newbox);
       newbox.appendChild(heder);
@@ -140,13 +126,13 @@ function displaySchedules(schedules, classData) {
       
       heder.textContent = "Option "+h+": ";
       for(z=0; z<8;z++){
-      //console.log(results);
+  
       newpre.textContent = newpre.textContent + leat[z] +": "+ getCheckboxIdByValue(schedules[y][z])+"\n";
       }
       
       
   }
-  //console.log("end code");
+  
 }
 
 
@@ -196,20 +182,13 @@ function nextPermutation(arr) {
 // Checks to see if the selected classes are in valid periods
 function check(selectedClasses, classData, place) {
   const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
-  //console.log("running check")
-  //console.log("palce:"+place);
-  //console.log("schudle array:"+selectedClasses[place]);
+ 
   for (let i = 0; i < selectedClasses[place].length; i++) {
-    //console.log("block:"+i);
-    //console.log("curent class:"+selectedClasses[place][i]);
     const classCode = selectedClasses[place];
     const period = letters[i];
     
     // Check if the current class is available in the current period
-    //console.log("period:"+period);
-    //console.log("class code"+classCode[i]);
-    //console.log("offered blocks:"+classData[classCode[i]]);
-    //console.log("conflicts "+!classData[classCode[i]].includes(period));
+  
     if (!classData[classCode[i]].includes(period)) {
       //console.log("Conflict found");
       return false; // Conflict found
