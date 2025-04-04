@@ -67,10 +67,8 @@ function generateClassSchedules(selectedClasses, classData) {
     
     const validSchedule = [];
     if (check(permutedClasses, classData, x)) {
-      const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
-     
+      const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];1
       schedules.push(permutedClasses[x])
-      e
       
     }
 
