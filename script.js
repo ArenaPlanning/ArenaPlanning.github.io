@@ -25,57 +25,50 @@ async function fetchCSV() {
 // Function to generate all possible schedules
 async function generateSchedules() {
   results = 0;
-  document.getElementById('output').textContent = "generating...";                  
+  document.getElementById('output').textContent = "generating...";
   let divb = document.querySelector(".bigdiv");
-  divb.remove();
+  if (divb) divb.remove();
   const classData = await fetchCSV();
 
-  
   const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
                                 .map(input => input.value);
-  
+
   if (selectedClasses.length === 0) {
     document.getElementById('output').textContent = 'Please select 8 classes.';
     return;
   }
-  let u =0;
-  if (selectedClasses.length != 8){
-    document.getElementById('output').textContent = "you have selected "+selectedClasses.length+ " classes please select 8.";
+  if (selectedClasses.length != 8) {
+    document.getElementById('output').textContent = "You have selected " + selectedClasses.length + " classes, please select 8.";
+    return;
   }
 
-  const schedules = generateClassSchedules(selectedClasses, classData);
+  const schedules = await generateClassSchedules(selectedClasses, classData);
 
-  
-  //console.log(schedules);
   displaySchedules(schedules, classData);
-  //console.log(res);
 }
 
-
-
-
-
-// Function to generate all possible combinations (permutations) of class schedules
 function generateClassSchedules(selectedClasses, classData) {
-  let schedules = [];
-  let x = 0;
-  const maxPermutations = 40320; // 8! for max 8 classes
-  const permutedClasses = permutator(selectedClasses);
-  const validSchedule = [];
-  
-  while (x < maxPermutations) {
-    
-    const validSchedule = [];
-    if (check(permutedClasses, classData, x)) {
-      const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];1
-      schedules.push(permutedClasses[x])
-      
+  return new Promise((resolve, reject) => {
+    let schedules = [];
+    let x = 0;
+    const maxPermutations = 40320; // 8! for max 8 classes
+    const permutedClasses = permutator(selectedClasses);
+
+    const timeout = setTimeout(() => {
+      document.getElementById('output').textContent = 'You cannot currently select "Free Any" along with one or more individual free blocks.';
+      resolve([]);
+    }, 5000); // 5 sec
+
+    while (x < maxPermutations) {
+      if (check(permutedClasses, classData, x)) {
+        schedules.push(permutedClasses[x]);
+      }
+      x++;
     }
 
-    x++;
-  }
-  
-  return schedules;
+    clearTimeout(timeout);
+    resolve(schedules);
+  });
 }
 
 
