@@ -1,5 +1,5 @@
 # Arena Planning 
-created to quickly allow you to enter your classes and get possible combinations for your schedule
 
+This project will provide possible schedule options when you input the classes you want to take.
 
-[why did aps block it oml](https://arenaplanning.github.io/)
+[arena planning](arenaplanning.github.io)
