@@ -27,7 +27,9 @@ async function generateSchedules() {
   results = 0;
   document.getElementById('output').textContent = "generating...";                  
   let divb = document.querySelector(".bigdiv");
-  divb.remove();
+  if (divb) {
+    divb.remove();
+  }
   const classData = await fetchCSV();
 
   
@@ -35,14 +37,18 @@ async function generateSchedules() {
                                 .map(input => input.value);
   
   if (selectedClasses.length === 0) {
-    document.getElementById('output').textContent = 'Please select 8 classes.';
+    document.getElementById('output').textContent = 'Please select at least 5 classes.';
     return;
   }
-  let u =0;
-  if (selectedClasses.length != 8){
-    document.getElementById('output').textContent = "you have selected "+selectedClasses.length+ " classes please select 8.";
+  let u = 0;
+  
+  if (selectedClasses.length < 5){
+    document.getElementById('output').textContent = "you have selected "+selectedClasses.length+ " classes please select at least 5.";
+  } else {
+  while(selectedClasses.length < 8){
+    selectedClasses.push("8");
   }
-
+  }
   const schedules = generateClassSchedules(selectedClasses, classData);
 
   
@@ -67,7 +73,7 @@ function generateClassSchedules(selectedClasses, classData) {
     
     const validSchedule = [];
     if (check(permutedClasses, classData, x)) {
-      const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];1
+      const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
       schedules.push(permutedClasses[x])
       
     }
@@ -103,7 +109,14 @@ function displaySchedules(schedules, classData) {
   bigdiv.style.flexWrap="wrap";
 
   for (y = 0; y < schedules.length; y++) {
-    
+      for(z=0; z<y;z++){
+        if (arraysEqual(schedules[y],schedules[z])){
+          schedules.splice(y,1);
+        }
+      }
+      if (y >= schedules.length) {
+        break;
+      }
       let h=y+1;
       const newbox = document.createElement("div");
       const newpre = document.createElement("pre");
@@ -115,16 +128,12 @@ function displaySchedules(schedules, classData) {
       newbox.id = "box:"+results;
       newpre.id = "pre:"+results;
       newbox.style.padding="10px"
-      
-     
-      
       bigdiv.appendChild(newbox);
       newbox.appendChild(heder);
       newbox.appendChild(newpre);
       
       heder.textContent = "Option "+h+": ";
       for(z=0; z<8;z++){
-  
       newpre.textContent = newpre.textContent + leat[z] +": "+ getCheckboxIdByValue(schedules[y][z])+"\n";
       }
       
@@ -133,6 +142,11 @@ function displaySchedules(schedules, classData) {
   
 }
 
+// arraysEqual function to compare two arrays
+function arraysEqual(arr1, arr2) {
+  if (arr1.length !== arr2.length) return false;
+  return arr1.every((value, index) => value === arr2[index]);
+}
 
 //function for finding id from value
 function getCheckboxIdByValue(value) {
