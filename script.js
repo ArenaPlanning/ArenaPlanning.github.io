@@ -247,14 +247,24 @@ function listiners(){
   });
   
 }
-function counter(event){
-  
+function counter(){
+  const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked')).map(input => input.id);
   const counter = document.getElementById("counter");
-  if(event.currentTarget.checked){
-  counter.textContent = Number(counter.textContent) + 1;
-  }else{
-  counter.textContent = Number(counter.textContent) - 1;
-  }
-  
+  counter.textContent = selectedClasses.length;
+  makeselected(selectedClasses);
 }
 listiners();
+
+function makeselected(selectedClasses){
+  const container = document.getElementById("selectedclasses");
+  container.innerHTML = '';
+  let i = 0;
+  selectedClasses.forEach(() => {
+  const p = document.createElement("p");
+  p.textContent = selectedClasses[i];
+  p.className = "selclass";
+  container.appendChild(p);
+  i++;
+  });
+}
+counter();

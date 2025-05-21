@@ -75,3 +75,16 @@ h3 {
   text-align: center;
   max-width: fit-content;
 }
+#selectedclasses{
+  /* background-color: #5A7370; */
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+
+.selclass{
+  background-color: #808080;
+  padding: .5em;
+  border-radius: 10px;
+}
