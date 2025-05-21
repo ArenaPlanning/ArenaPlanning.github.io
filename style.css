@@ -78,7 +78,6 @@ h3 {
   max-height: min-content;
 }
 #selectedclasses{
-  /* background-color: #5A7370; */
   display: flex;
   gap: 10px;
   justify-content: center;
@@ -87,8 +86,10 @@ h3 {
 
 
 .selclass{
-  background-color: #808080;
+  background-color: #bebebe;
   padding: .5em;
   border-radius: 10px;
   margin-top: 0px;
+  border: 1px solid #000000;
+  box-shadow: 1px 1px 3px #000000;
 }
