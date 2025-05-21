@@ -1,3 +1,9 @@
+*{
+  transition: all 0.3s ease;
+  transition: width 0.3s ease;
+  transition: height 0.3s ease;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
 
 h1{
   font-size: 50px;
@@ -53,12 +59,13 @@ fieldset{
   transition: 2s ease;
 }
 
-fieldset.collapsible .checkboxes {
-  display: none; 
+.checkboxes{
+  overflow: hidden;
+  max-height: 0;
+  transition: ease-out 0.3s;
 }
-
-fieldset.collapsible.active .checkboxes {
-  display: block; 
+.collapsible.active > .checkboxes{
+  max-height: 300px;
 }
 
 h3 {
