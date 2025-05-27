@@ -233,10 +233,10 @@ function check(selectedClasses, classData, place) {
 
 
 
-document.querySelectorAll('h3').forEach(function(legend) {
-  legend.addEventListener('click', function() {
-    var fieldset = this.parentElement;
-    fieldset.classList.toggle('active'); 
+
+document.querySelectorAll('fieldset').forEach(function(fieldset) {
+  fieldset.addEventListener('click', function() {
+    this.classList.toggle('active'); 
   });
 });
 

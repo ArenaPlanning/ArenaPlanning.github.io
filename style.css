@@ -69,7 +69,6 @@ fieldset{
 }
 
 h3 {
-  cursor: pointer; 
   margin-top: 10px;
 }
 #counter{
@@ -99,4 +98,8 @@ h3 {
   margin-top: 0px;
   border: 1px solid #000000;
   box-shadow: 1px 1px 3px #000000;
+}
+
+fieldset{
+  cursor: pointer; 
 }
