@@ -1,136 +1,136 @@
-21130,English 9,A; B; C; D; F,
-21140,English 10,C,
-31196,AP Language 10 ,A; D; F; G,
-21150,English 11,A; D; E; F; G,                           
-31195,AP Literature,A; D; E; F; G,
-21160,English 12,A; B; C; E; F,
-21207,Journalism,G,
-26608,Capstone Seminar,C,
-21209,Yearbook,G,
-,,,
-22210,World Geography,B,
-22212,Economics & Pers. Finance,E; F; G; H,
-22212,Economics & Pers. Finance EL,D,
-22216,World History,A; B; C; D; G,
-32399,AP Modern Europe,C,
-22360,VA/US History ,A; C,
-32319,AP VA/US History,A; B; C; G,
-22440,US/VA Government EL,G,
-22440,US/VA Government,A; B; D; E,
-32445,AP US Gov.,A; B; D; E,
-32445,AP US Gov Seminar,F,
-22500,Sociology ,G,
-32902,AP Psychology,E; F; G ,
-32371,AP African American Studies,B,
-,,,
-23132,Algebra I/Strategies (Double block),D; E,
-23130,Algebra I ,E; F,
-23145,Algebra Functions & Data Analysis (AFDA),G,
-23143,Geometry,A; E; F; H,
-23141,Geometry Intensified,G,
-23135,Algebra II ,D; E; F,
-23136,Algebra II Intesified,A; E,
-23162,Precalculus/Trig.,B; F,
-23164,AP Precalculus,A; B,
-33192,AP Statistics ,A; C,
-33177,AP Calculus AB,C; D,
-33179,AP Calculus BC,C; D,
-23195,Data Science,D; G,
-93178W,Multivariable Calculus,G,
-26639,Computer Science ,C,
-20187,Ind. Study (Comp Sci & Robotics),G; H,
-,,,
-24210,Earth Science,A; B,
-24310,Biology,A: B; C; E; F; G,
-,,,
-34370/34371,AP Biology,F; G,
-24410,Chemistry,"A; B, C; D",
-34470/34471,AP Chemistry,F; G,
-24500,Prin. of Physics,G,
-24510,Physics,D; E; F,
-34570,AP Physics (single block),A; B ,
-34270,AP Environmental Science,E,
-,Ecology,C,
-,,,
-25110,French I,D,
-25120,French II,A,
-25130,French III,F,
-25140,French IV,G,
-25150,French V,B,
-35165,French AP,B,
-,,,
-25510,Spanish I,D; F; G,
-25520,Spanish II,A; B,
-25530,Spanish III,C,
-25530,Spanish III,F,
-25540,Spanish IV,B,
-25550,Spanish V ,E,
-25560,Adv. Stud. Spanish  ,D,
-35565,Spanish AP Language,C,
- , , ,
-25310,Latin I,G,
-25320,Latin II,A,
-25330,Latin III,F,
-25330,Latin IV,D,
-,Latin V,B,
-35350,Latin AP,B,
-,,,
-,,,
-25990,American Sign Language I,A ,
-25995,American Sign Language II,B,
-25997,American Sign Language III,B,
-25992,American Sign Language IV,B,
-,,,
-27300,Health/PE 9,B; D; H,
-27400,Health/PE 10,A; C; E,
-,,,
-29263,Concert Choir,B,
-29285, Camerata,C,
-29289,Chamber Singers,D,
-29225,Music Theory ,C,
-39226,AP Music Theory,C,
-,General Music,E,
-,,,
-29251,Jazz Band,PM,
-29234,Advanced Band (Wind. Ens.),D,
-,Beginning Band,F,
-29244,String Orchestra,E,
-29225, Song Writing ,H/PM,
-,,,
-21400,HS Theatre Arts  I,B,
-21415,HS Theatre Arts II,B,
-21425,HS Theatre Arts III,B,
-,,,
-,,,
-21430,HS Directing,PM,
-21435,HS TechnicalTheatre ,C; E,
-,,,
-21178,Filmaking,E,
-21178,Film Directing and Analysis,D,
-21178,Film Analysis and Filmaking,C,
-29120,Art I,A; B,
-29130,Art II,E,
-29140,Art III,C,
-29110,Art IV,C; D,
-39149,AP Studio Art ,D,
-29193,Photo I,F; G,
-29194,Photo II,F; G,
-29195,Photo III,F; G,
-29196,Photo IV,PM,
-,,,
-20028,Instructional Studies,F; G; H,
-20028,Instructional Studies,B; E; G; H,
-20028,Instructional Studies,E; F; H,
-20028,Instructional Studies,B; C ,
-,,,
-,,,
-20028,Instructional Studies,D; F; H,
-20028,Instructional Studies,B; G; H,
-0,free,A;,
-1,free,B;,
-2,free,C;,
-3,free,D;,
-4,free,E;,
-5,free,F;,
-6,free,G;,
-7,free,H;,
+21130,A; B; C; D; F
+21140,C
+31196,A; D; F; G
+21150,A; D; E; F; G
+31195,A; D; E; F; G
+21160,A; B; C; E; F
+21207,G
+26608,C
+21209,G
+,
+22210,B
+22212,E; F; G; H
+22212,D
+22216,A; B; C; D; G
+32399,C
+22360,A; C
+32319,A; B; C; G
+22440,G
+22440,A; B; D; E
+32445,A; B; D; E
+32445,F
+22500,G
+32902,E; F; G 
+32371,B
+,
+23132,D; E
+23130,E; F
+23145,G
+23143,A; E; F; H
+23141,G
+23135,D; E; F
+23136,A; E
+23162,B; F
+23164,A; B
+33192,A; C
+33177,C; D
+33179,C; D
+23195,D; G
+93178W,G
+26639,C
+20187,G; H
+,
+24210,A; B
+24310,A: B; C; E; F; G
+,
+34370/34371,F; G
+24410,"A; B, C; D"
+34470/34471,F; G
+24500,G
+24510,D; E; F
+34570,A; B 
+34270,E
+,C
+,
+25110,D
+25120,A
+25130,F
+25140,G
+25150,B
+35165,B
+,
+25510,D; F; G
+25520,A; B
+25530,C
+25530,F
+25540,B
+25550,E
+25560,D
+35565,C
+ , 
+25310,G
+25320,A
+25330,F
+25330,D
+,B
+35350,B
+,
+,
+25990,A 
+25995,B
+25997,B
+25992,B
+,
+27300,B; D; H
+27400,A; C; E
+,
+29263,B
+29285,C
+29289,D
+29225,C
+39226,C
+,E
+,
+29251,PM
+29234,D
+,F
+29244,E
+29225,H/PM
+,
+21400,B
+21415,B
+21425,B
+,
+,
+21430,PM
+21435,C; E
+,
+21178,E
+21178,D
+21178,C
+29120,A; B
+29130,E
+29140,C
+29110,C; D
+39149,D
+29193,F; G
+29194,F; G
+29195,F; G
+29196,PM
+,
+20028,F; G; H
+20028,B; E; G; H
+20028,E; F; H
+20028,B; C 
+,
+,
+20028,D; F; H
+20028,B; G; H
+0,A;
+1,B;
+2,C;
+3,D;
+4,E;
+5,F;
+6,G;
+7,H;
