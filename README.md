@@ -1,5 +1,5 @@
 # Arena Planning 
 
-This project will provide possible schedule options when you input the classes you want to take.
+Generate possible schedule options by inputting the classes you want to take.
 
-[arena planning](arenaplanning.github.io)
+[Arena Planning](arenaplanning.github.io)
