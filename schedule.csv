@@ -1,103 +1,118 @@
 ID,Blocks,Title,Subject
-0,A,Free Block,
-1,B,Free Block,
-2,C,Free Block,
-3,D,Free Block,
-4,E,Free Block,
-5,F,Free Block,
-6,G,Free Block,
-7,H,Free Block,
-8,A;B;C;D;E;F;G;H,Free Block,
+0,A,Free Block,Free
+1,B,Free Block,Free
+2,C,Free Block,Free
+3,D,Free Block,Free
+4,E,Free Block,Free
+5,F,Free Block,Free
+6,G,Free Block,Free
+7,H,Free Block,Free
+8,A;B;C;D;E;F;G;H,Free Block,Free
 ,,,
-21130,A;B;C;D;E;G,English 9,
-21140,E;G,English 10,
-31196,A;F;G,AP English Language,
-21150,,English 11,
-31195,A;B;C;D;F,AP English Literature,
-21160,A;C;D;E;F,English 12,
-21207,G,Journalism,
-21209,G,Yearbook,
+21130,A;B;C;D;E;G,English 9,English
+21140,E;G,English 10,English
+31196,A;F;G,AP English Language,English
+21150,,English 11,English
+31195,A;B;C;D;F,AP English Literature,English
+21160,A;C;D;E;F,English 12,English
+26608,E,Capstone,English
+21207,G,Journalism,English
+21209,G,Yearbook,English
 ,,,
-23130,B;G,Algebra I,
-23145,F,AFDA,
-23143,B;C;D;F,Geometry,
-23141,B;C;D;F,"Geometry, Intensified",
-23135,,Algebra II,
-23136,B;C;E;F;G,Algebra II/Trigonometry Intensified,
-33164,G,AP Precalculus,
-33192,D;E,AP Statistics,
-33177,A,AP Calculus AB,
-33179,A;B,AP Calculus BC,
-23195,C,Data Science,
-33185,,AP Computer Science A,
-93178W,A,Multivariable Calculus,
+23130,B;G,Algebra I,Math
+23145,E;F,AFDA,Math
+23143,B;C;D;F,Geometry,Math
+23141,B;C;D;F,"Geometry, Intensified",Math
+23135,B;C;E;F;G,Algebra II,Math
+23136,B;C;E;F;G,Algebra II/Trigonometry Intensified,Math
+23155,F,Algebra III,Math
+23162,A;G,Precalculus,Math
+33164,G,AP Precalculus,Math
+33192,D;E,AP Statistics,Math
+33177,A,AP Calculus AB,Math
+33179,A;B,AP Calculus BC,Math
+23195,C,Data Science,Math
+26638,E,Computer Science,Math
+93178W,A,Multivariable Calculus,Math
 ,,,
-22212,D;F;G;H,Economics and Personal Finance,
-22216,A;D;E;F;H,World History,
-32399,A;C;F,AP European History,
-22360,E,US History,
-32319,A;C;D;F,AP US History,
-22440,B;D;F;G,US Government,
-32445,A;B;D;F;G,AP US Government,
-22500,G,Sociology,
-32902,A;B,AP Psychology,
-32371,B,AP African American Studies,
+22212,D;F;G;H,Economics and Personal Finance,History
+22216,A;D;E;F;H,World History,History
+32399,A;C;F,AP European History,History
+22360,E,US History,History
+32319,A;C;D;F,AP US History,History
+22440,B;D;F;G,US Government,History
+32445,A;B;D;F;G,AP US Government,History
+22500,G,Sociology,History
+32902,A;B,AP Psychology,History
+32371,B,AP African American Studies,History
 ,,,
-24210,A;B,Earth Science,
-24310,A;C;D;E;F;G,Biology,
-34370,F,AP Biology,
-34371,G,AP Biology,
-24410,A;B;C;D,Chemistry,
-34470,F,AP Chemistry,
-34471,G,AP Chemistry,
-24500,D;E;F;G,Principles of Physics,
-24510,D;E;F;G,Physics,
-34570,C,AP Physics C: Mechanics,
-34270,B;C,AP Environmental Science,
+24210,A;B,Earth Science,Science
+24310,A;C;D;E;F;G,Biology,Science
+34370,F,AP Biology,Science
+34371,G,AP Biology,Science
+24410,A;B;C;D,Chemistry,Science
+34470,F,AP Chemistry,Science
+34471,G,AP Chemistry,Science
+24500,D;E;F;G,Principles of Physics,Science
+24510,D;E;F;G,Physics,Science
+34570,C,AP Physics C: Mechanics,Science
+34270,B;C,AP Environmental Science,Science
+24365,G,Ecology,Science
 ,,,
-25110,,French I,
-25120,,French II,
-25130,,French III,
-25140,,French IV,
-25150,,French V,
-35165,B,AP French Language and Culture,
+25110,D,French I,French
+25120,A,French II,French
+25130,F,French III,French
+25140,G,French IV,French
+25150,B,French V,French
+35165,B,AP French Language and Culture,French
 ,,,
-25510,D;F,Spanish I,
-25520,A;B;G,Spanish II,
-25530,A;F,Spanish III,
-25540,,Spanish IV,
-25550,,Spanish V,
-25560,,Advanced Studies in Spanish,
-35565,B,AP Spanish Language and Culture,
+25510,D;F,Spanish I,Spanish
+25520,A;B;G,Spanish II,Spanish
+25530,A;F,Spanish III,Spanish
+25540,C;E,Spanish IV,Spanish
+25550,F,Spanish V,Spanish
+25560,F,Advanced Studies in Spanish,Spanish
+35565,B,AP Spanish Language and Culture,Spanish
 ,,,
-25310,,Latin I,
-25320,,Latin II,
-25330,,Latin III,
-35350,B,AP Latin,
+25310,G,Latin I,Latin
+25320,G,Latin II,Latin
+25330,F,Latin III,Latin
+25340,C,Latin IV,Latin
+35350,B,AP Latin,Latin
 ,,,
-25990,,ASL I,
-25995,,ASL II,
-25997,,ASL III,
-25992,,ASL IV,
+25990,B,ASL I,ASL
+25995,C,ASL II,ASL
+25997,C,ASL III,ASL
+25992,C,ASL IV,ASL
 ,,,
-27300,A;B;C,PE 9,
-27400,D;E;F,PE 10,
+27300,A;B;C,PE 9,PE
+27400,D;E;F,PE 10,PE
 ,,,
-29263,,Treble Chorus,
-29289,D,Chamber,
-29225,G,Music Theory,
-39226,G,AP Music Theory,
+29263,B,Chorus,Music
+29285,C,Camerata,Music
+29289,D,Chamber,Music
+29225,G,Music Theory,Music
+39226,G,AP Music Theory,Music
+29251,PM,Jazz Band,Music
+29234,D,Advanced Band,Music
+29244,E,Orchestra,Music
+29225,G,Songwriting,Music
 ,,,
-29251,PM,Jazz Band,
-29234,D,Advanced Band,
-29244,E,Orchestra,
+21400,B,Theatre I,Theatre
+21415,B,Theatre II,Theatre
+21425,B,Theatre III,Theatre
+21435,C;E,Technical Theatre,Theatre
 ,,,
-21400,,Theatre I,
-21415,,Theatre II,
-21425,,Theatre III,
-21435,C;E,Technical Theatre,
-,,,
-29120,A;B,Art I,
-29130,E,Art II,
-29140,,Art III,
-39149,D,AP Art,
+29120,A;B,Art I,Art
+29130,E,Art II,Art
+29140,C,Art III,Art
+29110,C,Art IV,Art
+39149,D,AP Art,Art
+29167,A;B,Ceramics I,Art
+29193,D,Photo I,Art
+29194,E,Photo II,Art
+29195,E,Photo III,Art
+29196,E,Photo IV,Art
+21178,C,Film,Art
+21178,D,Film Directing,Art
+21178,E,Film & Law,Art
