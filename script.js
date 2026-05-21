@@ -1,7 +1,7 @@
 let results = 0;
 // Function to fetch the CSV and process the data
 async function fetchCSV() {
-  const response = await fetch('https://raw.githubusercontent.com/ArenaPlanning/ArenaPlanning.github.io/refs/heads/main/schedule.csv');
+  const response = await fetch('./schedule.csv');
   const csvData = await response.text();
 
   const rows = csvData.trim().split('\n').map(row => row.split(','));
