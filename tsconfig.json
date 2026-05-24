@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "ES2020",
+    "lib": ["DOM", "ES2020"],
+    "rootDir": ".",
+    "outDir": "dist",
+    "strict": true,
+    "noEmitOnError": true
+  },
+  "include": ["script.ts"]
+}
