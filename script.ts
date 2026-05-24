@@ -1,13 +1,15 @@
 let results = 0;
+var y: number;
+var z: number;
 // Function to fetch the CSV and process the data
-async function fetchCSV() {
+async function fetchCSV(): Promise<Record<string, string[]>> {
   const response = await fetch('./schedule.csv');
   const csvData = await response.text();
 
   const rows = csvData.trim().split('\n').map(row => row.split(','));
 
 
-  const classData = {};
+  const classData: Record<string, string[]> = {};
   rows.forEach(row => {
     const classCode = row[0];
     const periods = row[1].split(';');
@@ -23,9 +25,9 @@ async function fetchCSV() {
 
 
 // Function to generate all possible schedules
-async function generateSchedules() {
+async function generateSchedules(): Promise<void> {
   results = 0;
-  document.getElementById('output').textContent = "generating...";                  
+  document.getElementById('output')!.textContent = "generating...";                  
   let divb = document.querySelector(".bigdiv");
   if (divb) {
     divb.remove();
@@ -33,17 +35,17 @@ async function generateSchedules() {
   const classData = await fetchCSV();
 
   
-  const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
+  const selectedClasses = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="class"]:checked'))
                                 .map(input => input.value);
   
   if (selectedClasses.length === 0) {
-    document.getElementById('output').textContent = 'Please select at least 5 classes.';
+    document.getElementById('output')!.textContent = 'Please select at least 5 classes.';
     return;
   }
   let u = 0;
   
   if (selectedClasses.length < 5){
-    document.getElementById('output').textContent = "you have selected "+selectedClasses.length+ " classes please select at least 5.";
+    document.getElementById('output')!.textContent = "you have selected "+selectedClasses.length+ " classes please select at least 5.";
   } else {
   while(selectedClasses.length < 8){
     selectedClasses.push("8");
@@ -62,16 +64,16 @@ async function generateSchedules() {
 
 
 // Function to generate all possible combinations (permutations) of class schedules
-function generateClassSchedules(selectedClasses, classData) {
-  let schedules = [];
+function generateClassSchedules(selectedClasses: string[], classData: Record<string, string[]>): string[][] {
+  let schedules: string[][] = [];
   let x = 0;
   const maxPermutations = 40320; // 8! for max 8 classes
   const permutedClasses = permutator(selectedClasses);
-  const validSchedule = [];
+  const validSchedule: string[] = [];
   
   while (x < maxPermutations) {
     
-    const validSchedule = [];
+    const validSchedule: string[] = [];
     if (check(permutedClasses, classData, x)) {
       const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
       schedules.push(permutedClasses[x])
@@ -90,8 +92,8 @@ function generateClassSchedules(selectedClasses, classData) {
 
 
 // Function to display the generated schedules in HTML
-function displaySchedules(schedules, classData) {
-  const output = document.getElementById('output');
+function displaySchedules(schedules: string[][], classData: Record<string, string[]>): void {
+  const output = document.getElementById('output') as HTMLElement;
   output.innerHTML = '';
   //console.log("outputing now");
   const leat = ["A", "B", "C", "D", "E", "F", "G", "H"];
@@ -102,7 +104,7 @@ function displaySchedules(schedules, classData) {
   }
   //console.log(schedules);
   const bigdiv = document.createElement("div");
-  bigdiv.classList = "bigdiv";
+  (bigdiv as unknown as { classList: string }).classList = "bigdiv";
   bigdiv.style.display = "flex";
   document.body.appendChild(bigdiv);
   bigdiv.style.flexDirection = "row";
@@ -123,8 +125,8 @@ function displaySchedules(schedules, classData) {
       
       const heder = document.createElement("strong");
       results++;
-      newpre.classList="resultspre";
-      newbox.classList = "results";
+      (newpre as unknown as { classList: string }).classList = "resultspre";
+      (newbox as unknown as { classList: string }).classList = "results";
       newbox.id = "box:"+results;
       newpre.id = "pre:"+results;
       newbox.style.padding="10px"
@@ -143,14 +145,14 @@ function displaySchedules(schedules, classData) {
 }
 
 // arraysEqual function to compare two arrays
-function arraysEqual(arr1, arr2) {
+function arraysEqual<T>(arr1: T[], arr2: T[]): boolean {
   if (arr1.length !== arr2.length) return false;
   return arr1.every((value, index) => value === arr2[index]);
 }
 
 //function for finding id from value
-function getCheckboxIdByValue(value) {
-        const checkbox = Array.from(document.querySelectorAll('input[type=checkbox]'))
+function getCheckboxIdByValue(value: string): string | null {
+        const checkbox = Array.from(document.querySelectorAll<HTMLInputElement>('input[type=checkbox]'))
             .find(checkbox => checkbox.value === value);
         return checkbox ? checkbox.id : null;
 }
@@ -159,7 +161,7 @@ function getCheckboxIdByValue(value) {
 
 
 // Function to generate the next lexicographical permutation of an array
-function nextPermutation(arr) {
+function nextPermutation(arr: string[]): string[] {
   let i = arr.length - 2;
 
   // Step 1: Find the first element that is smaller than the element to its right
@@ -192,7 +194,7 @@ function nextPermutation(arr) {
 
 
 // Checks to see if the selected classes are in valid periods
-function check(selectedClasses, classData, place) {
+function check(selectedClasses: string[][], classData: Record<string, string[]>, place: number): boolean {
   const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
  
   for (let i = 0; i < selectedClasses[place].length; i++) {
@@ -210,11 +212,12 @@ function check(selectedClasses, classData, place) {
   return true; // No conflicts
 }
   
-  function permutator(inputArr) {
-  var results = [];
+  function permutator<T>(inputArr: T[]): T[][] {
+  var results: T[][] = [];
 
-  function permute(arr, memo) {
-    var cur, memo = memo || [];
+  function permute(arr: T[], memo?: T[]): T[][] {
+    var cur: T[];
+    memo = memo || [];
 
     for (var i = 0; i < arr.length; i++) {
       cur = arr.splice(i, 1);
@@ -240,23 +243,23 @@ document.querySelectorAll('fieldset').forEach(function(fieldset) {
   });
 });
 
-function listiners(){
+function listiners(): void {
   const checkboxes = document.querySelectorAll('input');
   checkboxes.forEach(boxes => {
     boxes.addEventListener("change",counter);
   });
   
 }
-function counter(){
-  const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked')).map(input => input.id);
-  const counter = document.getElementById("counter");
-  counter.textContent = selectedClasses.length;
+function counter(): void {
+  const selectedClasses = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="class"]:checked')).map(input => input.id);
+  const counter = document.getElementById("counter") as HTMLElement;
+  counter.textContent = selectedClasses.length as unknown as string;
   makeselected(selectedClasses);
 }
 listiners();
 
-function makeselected(selectedClasses){
-  const container = document.getElementById("selectedclasses");
+function makeselected(selectedClasses: string[]): void {
+  const container = document.getElementById("selectedclasses") as HTMLElement;
   container.innerHTML = '';
   let i = 0;
   selectedClasses.forEach(() => {
