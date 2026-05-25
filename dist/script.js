@@ -47,18 +47,26 @@ async function generateSchedules() {
 // Function to generate all possible combinations (permutations) of class schedules
 function generateClassSchedules(selectedClasses, classData) {
     let schedules = [];
-    let x = 0;
-    const maxPermutations = 40320; // 8! for max 8 classes
     const permutedClasses = permutator(selectedClasses);
-    const validSchedule = [];
-    while (x < maxPermutations) {
-        const validSchedule = [];
-        if (check(permutedClasses, classData, x)) {
-            const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
-            schedules.push(permutedClasses[x]);
+
+    // Deduplicate permutations (handle repeated elements such as padded free-block placeholders)
+    const seen = new Set();
+    const uniquePermuted = [];
+    for (const p of permutedClasses) {
+        const key = p.join('|');
+        if (!seen.has(key)) {
+            seen.add(key);
+            uniquePermuted.push(p);
         }
-        x++;
     }
+
+    // Validate each unique permutation
+    for (let x = 0; x < uniquePermuted.length; x++) {
+        if (check(uniquePermuted, classData, x)) {
+            schedules.push(uniquePermuted[x]);
+        }
+    }
+
     return schedules;
 }
 // Function to display the generated schedules in HTML
@@ -78,18 +86,24 @@ function displaySchedules(schedules, classData) {
     document.body.appendChild(bigdiv);
     bigdiv.style.flexDirection = "row";
     bigdiv.style.flexWrap = "wrap";
-    for (y = 0; y < schedules.length; y++) {
-        for (z = 0; z < y; z++) {
-            if (arraysEqual(schedules[y], schedules[z])) {
-                schedules.splice(y, 1);
-            }
+    // Remove exact duplicate schedules (if any) to avoid repeated output
+    const seenSchedules = new Set();
+    const uniqueSchedules = [];
+    for (const s of schedules) {
+        const key = s.join('|');
+        if (!seenSchedules.has(key)) {
+            seenSchedules.add(key);
+            uniqueSchedules.push(s);
         }
-        if (y >= schedules.length) {
-            break;
-        }
-        let h = y + 1;
+    }
+    schedules = uniqueSchedules;
+
+    for (let i = 0; i < schedules.length; i++) {
+        const schedule = schedules[i];
+        const h = i + 1;
         const newbox = document.createElement("div");
         const newpre = document.createElement("pre");
+
         const heder = document.createElement("strong");
         results++;
         newpre.classList = "resultspre";
@@ -100,9 +114,10 @@ function displaySchedules(schedules, classData) {
         bigdiv.appendChild(newbox);
         newbox.appendChild(heder);
         newbox.appendChild(newpre);
+
         heder.textContent = "Option " + h + ": ";
-        for (z = 0; z < 8; z++) {
-            newpre.textContent = newpre.textContent + leat[z] + ": " + getCheckboxIdByValue(schedules[y][z]) + "\n";
+        for (let j = 0; j < 8; j++) {
+            newpre.textContent = newpre.textContent + leat[j] + ": " + getCheckboxIdByValue(schedule[j]) + "\n";
         }
     }
 }
