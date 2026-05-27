@@ -37,19 +37,15 @@ async function generateSchedules(): Promise<void> {
   
   const selectedClasses = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="class"]:checked'))
                                 .map(input => input.value);
-  
-  if (selectedClasses.length === 0) {
-    document.getElementById('output')!.textContent = 'Please select at least 5 classes.';
+  // Allow any number of selected classes between 0 and 8.
+  if (selectedClasses.length > 8) {
+    document.getElementById('output')!.textContent = `You selected ${selectedClasses.length} classes; the schedule has only 8 blocks. Please select at most 8 classes.`;
     return;
   }
-  let u = 0;
-  
-  if (selectedClasses.length < 5){
-    document.getElementById('output')!.textContent = "you have selected "+selectedClasses.length+ " classes please select at least 5.";
-  } else {
-  while(selectedClasses.length < 8){
+
+  // If fewer than 8 classes selected, pad with the "Free Any" code (8) to fill all blocks.
+  while (selectedClasses.length < 8) {
     selectedClasses.push("8");
-  }
   }
   const schedules = generateClassSchedules(selectedClasses, classData);
 
@@ -142,7 +138,7 @@ function displaySchedules(schedules: string[][], classData: Record<string, strin
 
     heder.textContent = "Option " + h + ": ";
     for (let j = 0; j < 8; j++) {
-      newpre.textContent = newpre.textContent + leat[j] + ": " + getCheckboxIdByValue(schedule[j]) + "\n";
+      newpre.textContent = newpre.textContent + leat[j] + ": " + getCheckboxLabelByValue(schedule[j]) + "\n";
     }
   }
   
@@ -155,10 +151,34 @@ function arraysEqual<T>(arr1: T[], arr2: T[]): boolean {
 }
 
 // function for finding id from value
-function getCheckboxIdByValue(value: string): string | null {
-        const checkbox = Array.from(document.querySelectorAll<HTMLInputElement>('input[type=checkbox]'))
-            .find(checkbox => checkbox.value === value);
-        return checkbox ? checkbox.id : null;
+function getCheckboxLabelByValue(value: string): string {
+  const checkbox = Array.from(document.querySelectorAll<HTMLInputElement>('input[type=checkbox][name="class"]'))
+    .find(checkbox => checkbox.value === value);
+
+  if (checkbox?.labels?.length) {
+    const labelText = checkbox.labels[0].textContent?.trim();
+    if (labelText) {
+      return labelText;
+    }
+  }
+
+  if (checkbox?.id) {
+    return checkbox.id;
+  }
+
+  const freeLabels: Record<string, string> = {
+    "0": "Free A/Career Center",
+    "1": "Free B",
+    "2": "Free C",
+    "3": "Free D",
+    "4": "Free E",
+    "5": "Free F",
+    "6": "Free G",
+    "7": "Free H/Sport",
+    "8": "Free Any",
+  };
+
+  return freeLabels[value] ?? value;
 }
 
 

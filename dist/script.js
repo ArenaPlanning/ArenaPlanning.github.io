@@ -26,18 +26,14 @@ async function generateSchedules() {
     const classData = await fetchCSV();
     const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
         .map(input => input.value);
-    if (selectedClasses.length === 0) {
-        document.getElementById('output').textContent = 'Please select at least 5 classes.';
+    // Allow any number of selected classes between 0 and 8.
+    if (selectedClasses.length > 8) {
+        document.getElementById('output').textContent = `You selected ${selectedClasses.length} classes; the schedule has only 8 blocks. Please select at most 8 classes.`;
         return;
     }
-    let u = 0;
-    if (selectedClasses.length < 5) {
-        document.getElementById('output').textContent = "you have selected " + selectedClasses.length + " classes please select at least 5.";
-    }
-    else {
-        while (selectedClasses.length < 8) {
-            selectedClasses.push("8");
-        }
+    // If fewer than 8 classes selected, pad with the "Free Any" code (8) to fill all blocks.
+    while (selectedClasses.length < 8) {
+        selectedClasses.push("8");
     }
     const schedules = generateClassSchedules(selectedClasses, classData);
     displaySchedules(schedules, classData);
@@ -107,7 +103,7 @@ function displaySchedules(schedules, classData) {
         newbox.appendChild(newpre);
         heder.textContent = "Option " + h + ": ";
         for (let j = 0; j < 8; j++) {
-            newpre.textContent = newpre.textContent + leat[j] + ": " + getCheckboxIdByValue(schedule[j]) + "\n";
+            newpre.textContent = newpre.textContent + leat[j] + ": " + getCheckboxLabelByValue(schedule[j]) + "\n";
         }
     }
 }
@@ -118,10 +114,31 @@ function arraysEqual(arr1, arr2) {
     return arr1.every((value, index) => value === arr2[index]);
 }
 // function for finding id from value
-function getCheckboxIdByValue(value) {
-    const checkbox = Array.from(document.querySelectorAll('input[type=checkbox]'))
+function getCheckboxLabelByValue(value) {
+    var _a, _b, _c;
+    const checkbox = Array.from(document.querySelectorAll('input[type=checkbox][name="class"]'))
         .find(checkbox => checkbox.value === value);
-    return checkbox ? checkbox.id : null;
+    if ((_a = checkbox === null || checkbox === void 0 ? void 0 : checkbox.labels) === null || _a === void 0 ? void 0 : _a.length) {
+        const labelText = (_b = checkbox.labels[0].textContent) === null || _b === void 0 ? void 0 : _b.trim();
+        if (labelText) {
+            return labelText;
+        }
+    }
+    if (checkbox === null || checkbox === void 0 ? void 0 : checkbox.id) {
+        return checkbox.id;
+    }
+    const freeLabels = {
+        "0": "Free A/Career Center",
+        "1": "Free B",
+        "2": "Free C",
+        "3": "Free D",
+        "4": "Free E",
+        "5": "Free F",
+        "6": "Free G",
+        "7": "Free H/Sport",
+        "8": "Free Any",
+    };
+    return (_c = freeLabels[value]) !== null && _c !== void 0 ? _c : value;
 }
 // Function to generate the next lexicographical permutation of an array
 function nextPermutation(arr) {
