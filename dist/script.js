@@ -40,15 +40,12 @@ async function generateSchedules() {
         }
     }
     const schedules = generateClassSchedules(selectedClasses, classData);
-    //console.log(schedules);
     displaySchedules(schedules, classData);
-    //console.log(res);
 }
 // Function to generate all possible combinations (permutations) of class schedules
 function generateClassSchedules(selectedClasses, classData) {
     let schedules = [];
     const permutedClasses = permutator(selectedClasses);
-
     // Deduplicate permutations (handle repeated elements such as padded free-block placeholders)
     const seen = new Set();
     const uniquePermuted = [];
@@ -59,27 +56,23 @@ function generateClassSchedules(selectedClasses, classData) {
             uniquePermuted.push(p);
         }
     }
-
     // Validate each unique permutation
     for (let x = 0; x < uniquePermuted.length; x++) {
         if (check(uniquePermuted, classData, x)) {
             schedules.push(uniquePermuted[x]);
         }
     }
-
     return schedules;
 }
 // Function to display the generated schedules in HTML
 function displaySchedules(schedules, classData) {
     const output = document.getElementById('output');
     output.innerHTML = '';
-    //console.log("outputing now");
     const leat = ["A", "B", "C", "D", "E", "F", "G", "H"];
     output.textContent = ' ';
     if (schedules.length === 0) {
         output.textContent = 'No possible schedules found.';
     }
-    //console.log(schedules);
     const bigdiv = document.createElement("div");
     bigdiv.classList = "bigdiv";
     bigdiv.style.display = "flex";
@@ -97,13 +90,11 @@ function displaySchedules(schedules, classData) {
         }
     }
     schedules = uniqueSchedules;
-
     for (let i = 0; i < schedules.length; i++) {
         const schedule = schedules[i];
         const h = i + 1;
         const newbox = document.createElement("div");
         const newpre = document.createElement("pre");
-
         const heder = document.createElement("strong");
         results++;
         newpre.classList = "resultspre";
@@ -114,7 +105,6 @@ function displaySchedules(schedules, classData) {
         bigdiv.appendChild(newbox);
         newbox.appendChild(heder);
         newbox.appendChild(newpre);
-
         heder.textContent = "Option " + h + ": ";
         for (let j = 0; j < 8; j++) {
             newpre.textContent = newpre.textContent + leat[j] + ": " + getCheckboxIdByValue(schedule[j]) + "\n";
@@ -127,7 +117,7 @@ function arraysEqual(arr1, arr2) {
         return false;
     return arr1.every((value, index) => value === arr2[index]);
 }
-//function for finding id from value
+// function for finding id from value
 function getCheckboxIdByValue(value) {
     const checkbox = Array.from(document.querySelectorAll('input[type=checkbox]'))
         .find(checkbox => checkbox.value === value);
@@ -166,11 +156,9 @@ function check(selectedClasses, classData, place) {
         const period = letters[i];
         // Check if the current class is available in the current period
         if (!classData[classCode[i]].includes(period)) {
-            //console.log("Conflict found");
             return false; // Conflict found
         }
     }
-    //console.log("Conflict not found returning true");
     return true; // No conflicts
 }
 function permutator(inputArr) {

@@ -54,9 +54,7 @@ async function generateSchedules(): Promise<void> {
   const schedules = generateClassSchedules(selectedClasses, classData);
 
   
-  //console.log(schedules);
   displaySchedules(schedules, classData);
-  //console.log(res);
 }
 
 
@@ -98,14 +96,14 @@ function generateClassSchedules(selectedClasses: string[], classData: Record<str
 function displaySchedules(schedules: string[][], classData: Record<string, string[]>): void {
   const output = document.getElementById('output') as HTMLElement;
   output.innerHTML = '';
-  //console.log("outputing now");
+
   const leat = ["A", "B", "C", "D", "E", "F", "G", "H"];
   output.textContent = ' ';
   if (schedules.length === 0) {
     output.textContent = 'No possible schedules found.';
 
   }
-  //console.log(schedules);
+
   const bigdiv = document.createElement("div");
   (bigdiv as unknown as { classList: string }).classList = "bigdiv";
   bigdiv.style.display = "flex";
@@ -156,7 +154,7 @@ function arraysEqual<T>(arr1: T[], arr2: T[]): boolean {
   return arr1.every((value, index) => value === arr2[index]);
 }
 
-//function for finding id from value
+// function for finding id from value
 function getCheckboxIdByValue(value: string): string | null {
         const checkbox = Array.from(document.querySelectorAll<HTMLInputElement>('input[type=checkbox]'))
             .find(checkbox => checkbox.value === value);
@@ -208,13 +206,10 @@ function check(selectedClasses: string[][], classData: Record<string, string[]>,
     const period = letters[i];
     
     // Check if the current class is available in the current period
-  
     if (!classData[classCode[i]].includes(period)) {
-      //console.log("Conflict found");
       return false; // Conflict found
     }
   }
-  //console.log("Conflict not found returning true");
   return true; // No conflicts
 }
   
