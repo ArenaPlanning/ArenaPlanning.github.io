@@ -26,38 +26,37 @@ async function generateSchedules() {
     const classData = await fetchCSV();
     const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
         .map(input => input.value);
-    if (selectedClasses.length === 0) {
-        document.getElementById('output').textContent = 'Please select at least 5 classes.';
+    // Allow any number of selected classes between 0 and 8.
+    if (selectedClasses.length > 8) {
+        document.getElementById('output').textContent = `You selected ${selectedClasses.length} classes; the schedule has only 8 blocks. Please select at most 8 classes.`;
         return;
     }
-    let u = 0;
-    if (selectedClasses.length < 5) {
-        document.getElementById('output').textContent = "you have selected " + selectedClasses.length + " classes please select at least 5.";
-    }
-    else {
-        while (selectedClasses.length < 8) {
-            selectedClasses.push("8");
-        }
+    // If fewer than 8 classes selected, pad with the "Free Any" code (8) to fill all blocks.
+    while (selectedClasses.length < 8) {
+        selectedClasses.push("8");
     }
     const schedules = generateClassSchedules(selectedClasses, classData);
-    //console.log(schedules);
     displaySchedules(schedules, classData);
-    //console.log(res);
 }
 // Function to generate all possible combinations (permutations) of class schedules
 function generateClassSchedules(selectedClasses, classData) {
     let schedules = [];
-    let x = 0;
-    const maxPermutations = 40320; // 8! for max 8 classes
     const permutedClasses = permutator(selectedClasses);
-    const validSchedule = [];
-    while (x < maxPermutations) {
-        const validSchedule = [];
-        if (check(permutedClasses, classData, x)) {
-            const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
-            schedules.push(permutedClasses[x]);
+    // Deduplicate permutations (handle repeated elements such as padded free-block placeholders)
+    const seen = new Set();
+    const uniquePermuted = [];
+    for (const p of permutedClasses) {
+        const key = p.join('|');
+        if (!seen.has(key)) {
+            seen.add(key);
+            uniquePermuted.push(p);
         }
-        x++;
+    }
+    // Validate each unique permutation
+    for (let x = 0; x < uniquePermuted.length; x++) {
+        if (check(uniquePermuted, classData, x)) {
+            schedules.push(uniquePermuted[x]);
+        }
     }
     return schedules;
 }
@@ -65,29 +64,31 @@ function generateClassSchedules(selectedClasses, classData) {
 function displaySchedules(schedules, classData) {
     const output = document.getElementById('output');
     output.innerHTML = '';
-    //console.log("outputing now");
     const leat = ["A", "B", "C", "D", "E", "F", "G", "H"];
     output.textContent = ' ';
     if (schedules.length === 0) {
         output.textContent = 'No possible schedules found.';
     }
-    //console.log(schedules);
     const bigdiv = document.createElement("div");
     bigdiv.classList = "bigdiv";
     bigdiv.style.display = "flex";
     document.body.appendChild(bigdiv);
     bigdiv.style.flexDirection = "row";
     bigdiv.style.flexWrap = "wrap";
-    for (y = 0; y < schedules.length; y++) {
-        for (z = 0; z < y; z++) {
-            if (arraysEqual(schedules[y], schedules[z])) {
-                schedules.splice(y, 1);
-            }
+    // Remove exact duplicate schedules (if any) to avoid repeated output
+    const seenSchedules = new Set();
+    const uniqueSchedules = [];
+    for (const s of schedules) {
+        const key = s.join('|');
+        if (!seenSchedules.has(key)) {
+            seenSchedules.add(key);
+            uniqueSchedules.push(s);
         }
-        if (y >= schedules.length) {
-            break;
-        }
-        let h = y + 1;
+    }
+    schedules = uniqueSchedules;
+    for (let i = 0; i < schedules.length; i++) {
+        const schedule = schedules[i];
+        const h = i + 1;
         const newbox = document.createElement("div");
         const newpre = document.createElement("pre");
         const heder = document.createElement("strong");
@@ -101,8 +102,8 @@ function displaySchedules(schedules, classData) {
         newbox.appendChild(heder);
         newbox.appendChild(newpre);
         heder.textContent = "Option " + h + ": ";
-        for (z = 0; z < 8; z++) {
-            newpre.textContent = newpre.textContent + leat[z] + ": " + getCheckboxIdByValue(schedules[y][z]) + "\n";
+        for (let j = 0; j < 8; j++) {
+            newpre.textContent = newpre.textContent + leat[j] + ": " + getCheckboxLabelByValue(schedule[j]) + "\n";
         }
     }
 }
@@ -112,11 +113,32 @@ function arraysEqual(arr1, arr2) {
         return false;
     return arr1.every((value, index) => value === arr2[index]);
 }
-//function for finding id from value
-function getCheckboxIdByValue(value) {
-    const checkbox = Array.from(document.querySelectorAll('input[type=checkbox]'))
+// function for finding id from value
+function getCheckboxLabelByValue(value) {
+    var _a, _b, _c;
+    const checkbox = Array.from(document.querySelectorAll('input[type=checkbox][name="class"]'))
         .find(checkbox => checkbox.value === value);
-    return checkbox ? checkbox.id : null;
+    if ((_a = checkbox === null || checkbox === void 0 ? void 0 : checkbox.labels) === null || _a === void 0 ? void 0 : _a.length) {
+        const labelText = (_b = checkbox.labels[0].textContent) === null || _b === void 0 ? void 0 : _b.trim();
+        if (labelText) {
+            return labelText;
+        }
+    }
+    if (checkbox === null || checkbox === void 0 ? void 0 : checkbox.id) {
+        return checkbox.id;
+    }
+    const freeLabels = {
+        "0": "Free A/Career Center",
+        "1": "Free B",
+        "2": "Free C",
+        "3": "Free D",
+        "4": "Free E",
+        "5": "Free F",
+        "6": "Free G",
+        "7": "Free H/Sport",
+        "8": "Free Any",
+    };
+    return (_c = freeLabels[value]) !== null && _c !== void 0 ? _c : value;
 }
 // Function to generate the next lexicographical permutation of an array
 function nextPermutation(arr) {
@@ -151,11 +173,9 @@ function check(selectedClasses, classData, place) {
         const period = letters[i];
         // Check if the current class is available in the current period
         if (!classData[classCode[i]].includes(period)) {
-            //console.log("Conflict found");
             return false; // Conflict found
         }
     }
-    //console.log("Conflict not found returning true");
     return true; // No conflicts
 }
 function permutator(inputArr) {

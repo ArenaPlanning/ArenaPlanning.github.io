@@ -37,26 +37,20 @@ async function generateSchedules(): Promise<void> {
   
   const selectedClasses = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="class"]:checked'))
                                 .map(input => input.value);
-  
-  if (selectedClasses.length === 0) {
-    document.getElementById('output')!.textContent = 'Please select at least 5 classes.';
+  // Allow any number of selected classes between 0 and 8.
+  if (selectedClasses.length > 8) {
+    document.getElementById('output')!.textContent = `You selected ${selectedClasses.length} classes; the schedule has only 8 blocks. Please select at most 8 classes.`;
     return;
   }
-  let u = 0;
-  
-  if (selectedClasses.length < 5){
-    document.getElementById('output')!.textContent = "you have selected "+selectedClasses.length+ " classes please select at least 5.";
-  } else {
-  while(selectedClasses.length < 8){
+
+  // If fewer than 8 classes selected, pad with the "Free Any" code (8) to fill all blocks.
+  while (selectedClasses.length < 8) {
     selectedClasses.push("8");
-  }
   }
   const schedules = generateClassSchedules(selectedClasses, classData);
 
   
-  //console.log(schedules);
   displaySchedules(schedules, classData);
-  //console.log(res);
 }
 
 
@@ -66,23 +60,26 @@ async function generateSchedules(): Promise<void> {
 // Function to generate all possible combinations (permutations) of class schedules
 function generateClassSchedules(selectedClasses: string[], classData: Record<string, string[]>): string[][] {
   let schedules: string[][] = [];
-  let x = 0;
-  const maxPermutations = 40320; // 8! for max 8 classes
   const permutedClasses = permutator(selectedClasses);
-  const validSchedule: string[] = [];
-  
-  while (x < maxPermutations) {
-    
-    const validSchedule: string[] = [];
-    if (check(permutedClasses, classData, x)) {
-      const letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
-      schedules.push(permutedClasses[x])
-      
-    }
 
-    x++;
+  // Deduplicate permutations (handle repeated elements such as padded free-block placeholders)
+  const seen = new Set<string>();
+  const uniquePermuted: string[][] = [];
+  for (const p of permutedClasses) {
+    const key = p.join('|');
+    if (!seen.has(key)) {
+      seen.add(key);
+      uniquePermuted.push(p);
+    }
   }
-  
+
+  // Validate each unique permutation
+  for (let x = 0; x < uniquePermuted.length; x++) {
+    if (check(uniquePermuted, classData, x)) {
+      schedules.push(uniquePermuted[x]);
+    }
+  }
+
   return schedules;
 }
 
@@ -95,14 +92,14 @@ function generateClassSchedules(selectedClasses: string[], classData: Record<str
 function displaySchedules(schedules: string[][], classData: Record<string, string[]>): void {
   const output = document.getElementById('output') as HTMLElement;
   output.innerHTML = '';
-  //console.log("outputing now");
+
   const leat = ["A", "B", "C", "D", "E", "F", "G", "H"];
   output.textContent = ' ';
   if (schedules.length === 0) {
     output.textContent = 'No possible schedules found.';
 
   }
-  //console.log(schedules);
+
   const bigdiv = document.createElement("div");
   (bigdiv as unknown as { classList: string }).classList = "bigdiv";
   bigdiv.style.display = "flex";
@@ -110,36 +107,39 @@ function displaySchedules(schedules: string[][], classData: Record<string, strin
   bigdiv.style.flexDirection = "row";
   bigdiv.style.flexWrap="wrap";
 
-  for (y = 0; y < schedules.length; y++) {
-      for(z=0; z<y;z++){
-        if (arraysEqual(schedules[y],schedules[z])){
-          schedules.splice(y,1);
-        }
-      }
-      if (y >= schedules.length) {
-        break;
-      }
-      let h=y+1;
-      const newbox = document.createElement("div");
-      const newpre = document.createElement("pre");
-      
-      const heder = document.createElement("strong");
-      results++;
-      (newpre as unknown as { classList: string }).classList = "resultspre";
-      (newbox as unknown as { classList: string }).classList = "results";
-      newbox.id = "box:"+results;
-      newpre.id = "pre:"+results;
-      newbox.style.padding="10px"
-      bigdiv.appendChild(newbox);
-      newbox.appendChild(heder);
-      newbox.appendChild(newpre);
-      
-      heder.textContent = "Option "+h+": ";
-      for(z=0; z<8;z++){
-      newpre.textContent = newpre.textContent + leat[z] +": "+ getCheckboxIdByValue(schedules[y][z])+"\n";
-      }
-      
-      
+  // Remove exact duplicate schedules (if any) to avoid repeated output
+  const seenSchedules = new Set<string>();
+  const uniqueSchedules: string[][] = [];
+  for (const s of schedules) {
+    const key = s.join('|');
+    if (!seenSchedules.has(key)) {
+      seenSchedules.add(key);
+      uniqueSchedules.push(s);
+    }
+  }
+  schedules = uniqueSchedules;
+
+  for (let i = 0; i < schedules.length; i++) {
+    const schedule = schedules[i];
+    const h = i + 1;
+    const newbox = document.createElement("div");
+    const newpre = document.createElement("pre");
+
+    const heder = document.createElement("strong");
+    results++;
+    (newpre as unknown as { classList: string }).classList = "resultspre";
+    (newbox as unknown as { classList: string }).classList = "results";
+    newbox.id = "box:" + results;
+    newpre.id = "pre:" + results;
+    newbox.style.padding = "10px"
+    bigdiv.appendChild(newbox);
+    newbox.appendChild(heder);
+    newbox.appendChild(newpre);
+
+    heder.textContent = "Option " + h + ": ";
+    for (let j = 0; j < 8; j++) {
+      newpre.textContent = newpre.textContent + leat[j] + ": " + getCheckboxLabelByValue(schedule[j]) + "\n";
+    }
   }
   
 }
@@ -150,11 +150,35 @@ function arraysEqual<T>(arr1: T[], arr2: T[]): boolean {
   return arr1.every((value, index) => value === arr2[index]);
 }
 
-//function for finding id from value
-function getCheckboxIdByValue(value: string): string | null {
-        const checkbox = Array.from(document.querySelectorAll<HTMLInputElement>('input[type=checkbox]'))
-            .find(checkbox => checkbox.value === value);
-        return checkbox ? checkbox.id : null;
+// function for finding id from value
+function getCheckboxLabelByValue(value: string): string {
+  const checkbox = Array.from(document.querySelectorAll<HTMLInputElement>('input[type=checkbox][name="class"]'))
+    .find(checkbox => checkbox.value === value);
+
+  if (checkbox?.labels?.length) {
+    const labelText = checkbox.labels[0].textContent?.trim();
+    if (labelText) {
+      return labelText;
+    }
+  }
+
+  if (checkbox?.id) {
+    return checkbox.id;
+  }
+
+  const freeLabels: Record<string, string> = {
+    "0": "Free A/Career Center",
+    "1": "Free B",
+    "2": "Free C",
+    "3": "Free D",
+    "4": "Free E",
+    "5": "Free F",
+    "6": "Free G",
+    "7": "Free H/Sport",
+    "8": "Free Any",
+  };
+
+  return freeLabels[value] ?? value;
 }
 
 
@@ -202,13 +226,10 @@ function check(selectedClasses: string[][], classData: Record<string, string[]>,
     const period = letters[i];
     
     // Check if the current class is available in the current period
-  
     if (!classData[classCode[i]].includes(period)) {
-      //console.log("Conflict found");
       return false; // Conflict found
     }
   }
-  //console.log("Conflict not found returning true");
   return true; // No conflicts
 }
   
