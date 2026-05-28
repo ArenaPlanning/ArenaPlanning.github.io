@@ -52,7 +52,7 @@ async function generateSchedules(): Promise<void> {
       selectedClasses.filter(classCode => !(classCode in classData))
     ));
     if (missingSelections.length > 0) {
-      const message = `ERROR: The following class codes were not found in schedule.csv: ${missingSelections.join(', ')}`;
+      const message = `ERROR: ${missingSelections.join(', ')} not found in schedule.csv. Submit an issue at https://github.com/ArenaPlanning/ArenaPlanning.github.io/issues.`;
       output.textContent = message;
       throw new Error(message);
     }
