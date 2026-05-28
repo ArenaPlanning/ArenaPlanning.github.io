@@ -9,8 +9,13 @@ async function fetchCSV() {
     const rows = csvData.trim().split('\n').map(row => row.split(','));
     const classData = {};
     rows.forEach(row => {
-        const classCode = row[0];
-        const periods = row[1].split(';');
+        var _a, _b, _c;
+        const classCode = (_a = row[0]) === null || _a === void 0 ? void 0 : _a.trim();
+        if (!classCode || classCode === 'ID') {
+            return;
+        }
+        const blocks = (_c = (_b = row[1]) === null || _b === void 0 ? void 0 : _b.trim()) !== null && _c !== void 0 ? _c : '';
+        const periods = blocks ? blocks.split(';') : [];
         classData[classCode] = periods;
     });
     return classData;
@@ -18,25 +23,41 @@ async function fetchCSV() {
 // Function to generate all possible schedules
 async function generateSchedules() {
     results = 0;
-    document.getElementById('output').textContent = "generating...";
+    const output = document.getElementById('output');
+    output.textContent = "generating...";
     let divb = document.querySelector(".bigdiv");
     if (divb) {
         divb.remove();
     }
-    const classData = await fetchCSV();
-    const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
-        .map(input => input.value);
-    // Allow any number of selected classes between 0 and 8.
-    if (selectedClasses.length > 8) {
-        document.getElementById('output').textContent = `You selected ${selectedClasses.length} classes; the schedule has only 8 blocks. Please select at most 8 classes.`;
-        return;
+    try {
+        const classData = await fetchCSV();
+        const selectedClasses = Array.from(document.querySelectorAll('input[name="class"]:checked'))
+            .map(input => input.value);
+        // Allow any number of selected classes between 0 and 8.
+        if (selectedClasses.length > 8) {
+            output.textContent = `You selected ${selectedClasses.length} classes; the schedule has only 8 blocks. Please select at most 8 classes.`;
+            return;
+        }
+        const missingSelections = Array.from(new Set(selectedClasses.filter(classCode => !(classCode in classData))));
+        if (missingSelections.length > 0) {
+            const message = `ERROR: ${missingSelections.join(', ')} not found in schedule.csv. Submit an issue at https://github.com/ArenaPlanning/ArenaPlanning.github.io/issues.`;
+            output.textContent = message;
+            throw new Error(message);
+        }
+        // If fewer than 8 classes selected, pad with the "Free Any" code (8) to fill all blocks.
+        while (selectedClasses.length < 8) {
+            selectedClasses.push("8");
+        }
+        const schedules = generateClassSchedules(selectedClasses, classData);
+        displaySchedules(schedules, classData);
     }
-    // If fewer than 8 classes selected, pad with the "Free Any" code (8) to fill all blocks.
-    while (selectedClasses.length < 8) {
-        selectedClasses.push("8");
+    catch (error) {
+        const message = error instanceof Error
+            ? error.message
+            : 'Unexpected error while generating schedules.';
+        output.textContent = message;
+        throw error;
     }
-    const schedules = generateClassSchedules(selectedClasses, classData);
-    displaySchedules(schedules, classData);
 }
 // Function to generate all possible combinations (permutations) of class schedules
 function generateClassSchedules(selectedClasses, classData) {
