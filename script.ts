@@ -11,10 +11,14 @@ async function fetchCSV(): Promise<Record<string, string[]>> {
 
   const classData: Record<string, string[]> = {};
   rows.forEach(row => {
-    const classCode = row[0];
-    const periods = row[1].split(';');
+    const classCode = row[0]?.trim();
+    if (!classCode || classCode === 'ID') {
+      return;
+    }
+
+    const blocks = row[1]?.trim() ?? '';
+    const periods = blocks ? blocks.split(';') : [];
     classData[classCode] = periods;
-  
   });
 
   return classData;
@@ -27,30 +31,46 @@ async function fetchCSV(): Promise<Record<string, string[]>> {
 // Function to generate all possible schedules
 async function generateSchedules(): Promise<void> {
   results = 0;
-  document.getElementById('output')!.textContent = "generating...";                  
+  const output = document.getElementById('output') as HTMLElement;
+  output.textContent = "generating...";                  
   let divb = document.querySelector(".bigdiv");
   if (divb) {
     divb.remove();
   }
-  const classData = await fetchCSV();
+  try {
+    const classData = await fetchCSV();
 
-  
-  const selectedClasses = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="class"]:checked'))
-                                .map(input => input.value);
-  // Allow any number of selected classes between 0 and 8.
-  if (selectedClasses.length > 8) {
-    document.getElementById('output')!.textContent = `You selected ${selectedClasses.length} classes; the schedule has only 8 blocks. Please select at most 8 classes.`;
-    return;
+    const selectedClasses = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="class"]:checked'))
+                                  .map(input => input.value);
+    // Allow any number of selected classes between 0 and 8.
+    if (selectedClasses.length > 8) {
+      output.textContent = `You selected ${selectedClasses.length} classes; the schedule has only 8 blocks. Please select at most 8 classes.`;
+      return;
+    }
+
+    const missingSelections = Array.from(new Set(
+      selectedClasses.filter(classCode => !(classCode in classData))
+    ));
+    if (missingSelections.length > 0) {
+      const message = `ERROR: The following class codes were not found in schedule.csv: ${missingSelections.join(', ')}`;
+      output.textContent = message;
+      throw new Error(message);
+    }
+
+    // If fewer than 8 classes selected, pad with the "Free Any" code (8) to fill all blocks.
+    while (selectedClasses.length < 8) {
+      selectedClasses.push("8");
+    }
+    const schedules = generateClassSchedules(selectedClasses, classData);
+
+    displaySchedules(schedules, classData);
+  } catch (error) {
+    const message = error instanceof Error
+      ? error.message
+      : 'Unexpected error while generating schedules.';
+    output.textContent = message;
+    throw error;
   }
-
-  // If fewer than 8 classes selected, pad with the "Free Any" code (8) to fill all blocks.
-  while (selectedClasses.length < 8) {
-    selectedClasses.push("8");
-  }
-  const schedules = generateClassSchedules(selectedClasses, classData);
-
-  
-  displaySchedules(schedules, classData);
 }
 
 
